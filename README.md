@@ -1,3 +1,2 @@
 #Nodela
-###Interface for PCB Fabrication
-###when using the Roland-MODELA
+###PCB Fab Interface for the Roland-MODELA
