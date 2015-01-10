@@ -20,10 +20,9 @@ window.addEventListener('load',function(){
 		msg = JSON.parse(msg.data);
 		if (msg.type==='erase') {
 			if (msg.data==='success') {
-				document.getElementById('eraseStatus').innerHTML = 'Sucess!';
-				setTimeout(function(){
-					document.getElementById('eraseBox').style.display = 'none';
-				},1000);
+				document.getElementById('eraseBox').style.backgroundColor = 'rgb(30,225,125)';
+				document.getElementById('eraseStatus').innerHTML = 'Job Erased<br /><br />Please go to the START menu and open<br /><br />"Devices and Printers"<br /><br />to reconnect the mill';
+				document.getElementById('printerButton').style.display = 'inline-block';
 			}
 			else {
 				document.getElementById('eraseStatus').innerHTML = msg.data;
@@ -140,7 +139,9 @@ function Roland_eraseMemory(){
 		ws.send(JSON.stringify(msg));
 
 		document.getElementById('eraseBox').style.display = 'block';
+		document.getElementById('eraseBox').style.backgroundColor = 'rgb(225,30,30)';
 		document.getElementById('eraseStatus').innerHTML = 'Waiting for response...';
+		document.getElementById('printerButton').style.display = 'none';
 	}
 }
 

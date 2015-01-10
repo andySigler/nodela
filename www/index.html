@@ -55,13 +55,6 @@
 				<button onclick="printLayer()" id="print_button" class="bigbutton">Send Layer to Roland</button>
 				<button onclick="Roland_eraseMemory()" id="erase_button" class="bigbutton">Erase Memory</button>
 
-				<div id="eraseBox">
-					<h1>Erasing</h1>
-					<div class="eraseBar"></div>
-					<div id="eraseStatus"></div>
-					<button></button>
-				</div>
-
 			</div>
 
 			<div class="visualColumn">
@@ -94,6 +87,12 @@
 						<div id="yBar" class="bar"></div>
 					</div>
 				</div>
+			</div>
+
+			<div id="eraseBox">
+				<h1>Job Eraser</h1>
+				<div id="eraseStatus"></div>
+				<button id="printerButton" onclick="document.getElementById('eraseBox').style.display = 'none';" style="width:50px;margin-top:20px">OK</button>
 			</div>
 		</div>
 		<script type="text/javascript">

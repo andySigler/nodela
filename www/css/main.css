@@ -488,14 +488,14 @@ button:hover{
 }
 
 #eraseBox {
-	background-color: red;
+	background-color: rgb(225,30,30);
+	border:5px solid black;
 	color:white;
 	position:absolute;
 	text-align: center;
 	display:none;
-	width:100%;
-	left:0%;
-	top:200px;
-	border:1px solid red;
+	width:500px;
+	left:30px;
+	top:100px;
 	padding-bottom:1rem;
 }
