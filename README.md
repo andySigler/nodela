@@ -12,6 +12,6 @@ npm install
 
 To run:
 ```
-'node app.js'
+node app.js
 ```
 This will start the script, and open your default browser to 'localhost'.
