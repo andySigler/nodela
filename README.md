@@ -3,7 +3,9 @@
 
 Nodela is a Node script and HTML5 interface for send Eagle CAD files straight to the Roland for milling.
 
-To install:
+###Installation
+
+Download by running:
 ```
 git clone https://github.com/andySigler/nodela
 cd nodela
