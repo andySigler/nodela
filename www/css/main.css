@@ -144,6 +144,7 @@ canvas{
 	background-color:yellow;
 	font-size:36px;
 }
+
 .grayed{
 	z-index: -100;
 	opacity:0.3;
@@ -325,6 +326,11 @@ button:hover{
 }
 #print_button:hover{
 	background-color: rgb(30,225,125);
+	color: white;
+}
+
+#erase_button:hover{
+	background-color: rgb(225,30,30);
 	color: white;
 }
 

@@ -58,7 +58,11 @@ var ws = require('ws');
 var execTemp = require('child_process').exec;
 var tempCommand = _windows ? 'start' : 'open';
 execTemp(tempCommand+' http://localhost:'+http_port,function(err,stdin,stdout){
-	if(err) console.log('fuck');
+	if(err) {
+		console.log('');
+		console.log('Error opening a browser window...');
+		console.log('Please open a browser and go to "http://localhost:'+http_port+'"');
+	}
 });
 
 ////////////////////////////////////////////
