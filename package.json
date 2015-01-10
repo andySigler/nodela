@@ -1,0 +1,9 @@
+{
+  "name": "nodela",
+  "description": "NodeJS server for controlling the Roland-MODELA CNC milling machine",
+  "author": "Andy Sigler",
+  "dependencies": {
+    "ws": "*"
+  },
+  "engine": "node >= 0.4.1"
+}

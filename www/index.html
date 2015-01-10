@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Roland UI</title>
+		<link rel="stylesheet" href="./css/main.css">
+		<script type="text/javascript" src="./js/xmlParse.js"></script>
+		<script type="text/javascript" src="./js/wsStuff.js"></script>
+	</head>
+	<body>
+		<div id="dragWords">
+			<h1>DRAG .BRD FILE ON THE SCREEN</h2>
+		</div>
+		<div class="container" id="container">
+
+			<div class="buttons_container">
+
+				<button onclick="mirror()" id="mirror_button" class="bigbutton">MIRROR</button>
+
+				<div id="layerButtons_div" class="layerButtons_div">
+				</div>
+
+				<div class="divider"></div>
+
+				<input class="stepSize_bar" id="stepSize_bar" type="range" min="0" max="6" oninput="setStepSize(this.value)"/>
+				<div id="stepSize_display" class="stepSize_display"/></div>
+
+				<div id="jog_div" class="jog_div">
+					<button class="jog_button jog_up" onclick="jog(this,'up')">
+						<div class="jog_arrow arrow_up">&#8679;</div>
+					</button>
+					<button class="jog_button jog_left" onclick="jog(this,'left')">
+						<div class="jog_arrow arrow_left">&#8679;</div>
+					</button>
+					<button class="jog_button jog_right" onclick="jog(this,'right')">
+						<div class="jog_arrow arrow_right">&#8679;</div>
+					</button>
+					<button class="jog_button jog_down" onclick="jog(this,'down')">
+						<div class="jog_arrow arrow_down">&#8679;</div>
+					</button>
+				</div>
+
+				<div class="divider"></div>
+
+				<select class="layer_input" id="bitDiameter"/>
+					<option value="0.015625">1/64 inch Bit</option>
+					<option value="0.03125">1/32 inch Bit</option>
+					<option value="0.0625">1/16 inch Bit</option>
+					<option value="0.125">1/8 inch Bit</option>
+					<option value="0.25">1/4 inch Bit</option>
+				</select>
+				<input class="layer_input" id="cutDepth" type="text"placeholder="Cut Depth (inch)" />
+
+				<button onclick="printLayer()" id="print_button" class="bigbutton">Send Layer to Roland</button>
+				<button onclick="Roland_eraseMemory()" class="bigbutton">Erase Memory</button>
+
+				<div id="eraseBox">
+					<h1>Erasing</h1>
+					<div class="eraseBar"></div>
+					<div id="eraseStatus"></div>
+					<button></button>
+				</div>
+
+			</div>
+
+			<div class="visualColumn">
+				<div class="">
+					<div class="board_container">
+						<div id="canvas_container" class="canvasContainer">
+						</div>
+
+						<span id="widthLabel">inches</span>
+						<span id="heightLabel">cm</span>
+
+						<div class="originCircle" id="originCircle"></div>
+						<img class="originArrow" id="originArrow" src="./arrow.png">
+
+						<div class="origin_warning" id="origin_warning">Drill Origin
+						</div>
+					</div>
+					<div class="roland_container" onclick="sync()">
+						<br />
+						<p class="syncDescription">
+							The <span style="color:rgb(30,225,125)">green lines</span> show where the server <strong>thinks</strong> the mill's head is
+						</p>
+						<p class="syncDescription">
+							To work correctly, the lines <strong>must</strong> be accurate
+						</p>
+						<p class="syncDescription">
+							If it's incorrect, <strong>click here</strong> and the head will move to this spot
+						</p>
+						<div id="xBar" class="bar"></div>
+						<div id="yBar" class="bar"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+
+			var theStepSize = 1;
+			var jogPressed = false;
+
+			function jog(butt,dir){
+				if(!jogPressed){
+					jogPressed = true;
+
+					var amount = Number(theStepSize);
+					var axis = '';
+
+					if(dir==='left'){
+						axis = 'x';
+						amount *= -1;
+					}
+					else if(dir==='right'){
+						axis = 'x';
+					}
+					else if(dir==='down'){
+						axis = 'y';
+						amount *= -1;
+					}
+					else if(dir==='up'){
+						axis = 'y';
+					}
+
+					Roland_sendJog(axis,amount);
+
+					butt.classList.add('jog_button_focus');
+
+					setTimeout(function(){
+						jogPressed = false;
+						butt.classList.remove('jog_button_focus');
+					},2000);
+				}
+			}
+
+			function setStepSize(val){
+				// step sizes in inches
+				var possibleSteps = [0.01,0.03,0.06,0.1,0.3,0.5,1];
+				var inches = possibleSteps[val];
+				var cm = (inches * 2.54).toFixed(2);
+				document.getElementById('stepSize_display').innerHTML = inches+' inch ('+cm+' cm)';
+
+				theStepSize = Math.round(inches*1016);
+			}
+
+			window.addEventListener('load',function(){
+				setStepSize(document.getElementById('stepSize_bar').value);
+			});
+		</script>
+	</body>
+</html>
