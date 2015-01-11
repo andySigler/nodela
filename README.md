@@ -3,6 +3,8 @@
 
 A browser-based interface for quickly sending Eagle PCB designs to the Roland-MODELA milling machine.
 
+This version requires being run on a Window's PC, with the Roland-MODELA drivers already installed. Using the MODELA without any drivers needs further research, and please contact me if you have any helpful information on this.
+
 ###Installation
 
 Download with Git:
@@ -14,6 +16,7 @@ Install dependencies with npm:
 cd nodela
 npm install
 ```
+###Using
 
 To run:
 ```
