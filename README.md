@@ -1,7 +1,7 @@
 #nodela
-##Browser Interface for the Roland-Modela
+##Browser Interface for the Roland MDX-15/20 milling machines
 
-Nodela was developed for PCB fabrication using the Roland-Modela. It is a browser-based interface for quickly sending PCB designs and toolpaths from an Eagle `.brd` file to the milling machine.
+Nodela was developed for PCB fabrication using the MDX-15/20 milling machines. It is a browser-based interface for quickly sending PCB designs and toolpaths from an Eagle `.brd` file to the milling machine.
 
 #####Tutorials coming soon!
 
@@ -9,14 +9,14 @@ Repository also includes a redesigned bed plate, in order to avoid using any tap
 
 #####Sofware Features
  - Node.js script
- 	- Creates final file and writes to Roland drivers
+ 	- Creates final file and writes to MDX-15/20 drivers
  - Drag .brd Eagle file into interface to parse the gerber
  	- Recognizes Wires (pre-designed toolpaths)
  	- Recognizes Part Holes
  	- Recognizes Vias
- - Jog the Roland's head to select the cut's origin
+ - Jog the mills's head to select the cut's origin
 
-This version must be run on a Window's PC, with the Roland-Modela drivers already installed. Using the Modela without any drivers requires further research. Please contact me if you have any helpful information on this.
+This version must be run on a Window's PC, with the MDX-15/20 drivers already installed. Using the Modela without any drivers requires further research. Please contact me if you have any helpful information on this.
 
 ###Install
 
