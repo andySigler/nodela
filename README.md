@@ -1,13 +1,16 @@
 #nodela
 ##Browser Interface for the Roland-MODELA
 
-Nodela is a Node script and HTML5 interface for send Eagle CAD files straight to the Roland for milling.
+A browser-based interface for quickly sending Eagle PCB designs to the Roland-MODELA milling machine.
 
 ###Installation
 
-Download by running:
+Download with Git:
 ```
 git clone https://github.com/andySigler/nodela
+```
+Install dependencies with npm:
+```
 cd nodela
 npm install
 ```
@@ -16,4 +19,4 @@ To run:
 ```
 node app.js
 ```
-This will start the script, and open your default browser to 'localhost'.
+Once the script starts, and open your default browser to 'localhost'.
