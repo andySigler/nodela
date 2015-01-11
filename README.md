@@ -12,7 +12,7 @@ Repository also includes a redesigned bed plate, in order to avoid using any tap
  	- Creates final file and writes to Roland drivers
  - Drag .brd Eagle file into interface to parse the gerber
  	- Recognizes Wires (pre-designed toolpaths)
- 	- Recognizes Holes
+ 	- Recognizes Part Holes
  	- Recognizes Vias
  - Jog the Roland's head to select the cut's origin
 
