@@ -327,6 +327,8 @@ function sendToRoland(fileText,onSuccess,onError){
 				else commandLine = 'cat '+fileName;
 			}
 
+			var exec = childProcess.exec;
+
 			exec(commandLine, function (error, stdout, stderr) {
 				if(error){
 					console.log('\t\tError sending the command "'+commandLine+'":\r\r');
