@@ -3,12 +3,14 @@
 
 Nodela was developed for PCB fabrication using the Roland-Modela. It is a browser-based interface for quickly sending PCB designs and toolpaths from an Eagle .brd file to the milling machine.
 
- - Node.js script writes files to Roland drivers
- - Load your your Eagle .brd file by dragging into the browser
- - Interface recognizes
- 	- Wires (pre-designed toolpaths)
- 	- Holes
- 	- Vias
+####Software Features
+ - Node.js script
+ 	- Creates final file and writes to Roland drivers
+ - Drag .brd Eagle file into interface to parse the gerber
+ 	- Recognizes Wires (pre-designed toolpaths)
+ 	- Recognizes Holes
+ 	- Recognizes Vias
+ - Jog the Roland's head to select the cut's origin
 
 This version must be run on a Window's PC, with the Roland-Modela drivers already installed. Using the Modela without any drivers requires further research. Please contact me if you have any helpful information on this.
 
