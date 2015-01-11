@@ -1,7 +1,7 @@
 #nodela
 ##Browser Interface for the Roland-MODELA
 
-A browser-based interface for quickly sending PCB designs in Eagle to the Roland-MODELA milling machine.
+A browser-based interface for quickly sending PCB designs in Eagle to the Roland-MODELA milling machine. This software is a fast approach to milling pre-designed toolpaths from an Eagle .brd file.
 
 This version requires being run on a Window's PC, with the Roland-MODELA drivers already installed. Using the MODELA without any drivers requires further research. Please contact me if you have any helpful information on this.
 
