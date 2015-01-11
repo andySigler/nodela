@@ -7,7 +7,9 @@ This version requires being run on a Window's PC, with the Roland-MODELA drivers
 
 ###Installation
 
-Download with Git:
+Node.js and npm must already be installed on the Window's PC.
+
+Download as a .zip, or use Git:
 ```
 git clone https://github.com/andySigler/nodela
 ```
@@ -17,6 +19,8 @@ cd nodela
 npm install
 ```
 ###Using
+
+With 
 
 To run:
 ```
