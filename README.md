@@ -5,11 +5,11 @@ A browser-based interface for quickly sending Eagle PCB designs to the Roland-MO
 
 This version requires being run on a Window's PC, with the Roland-MODELA drivers already installed. Using the MODELA without any drivers requires further research. Please contact me if you have any helpful information on this.
 
-###Installation
+###Install
 
 Node.js and npm must already be installed on the Window's PC.
 
-Download as a .zip, or use Git:
+Download  .zip, or using Git:
 ```
 git clone https://github.com/andySigler/nodela
 ```
@@ -18,7 +18,7 @@ Install dependencies with npm:
 cd nodela
 npm install
 ```
-###Using
+###Use
 
 With 
 
