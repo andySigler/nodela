@@ -21,15 +21,14 @@ window.addEventListener('load',function(){
 		if (msg.type==='erase') {
 			if (msg.data==='success') {
 				document.getElementById('eraseBox').style.backgroundColor = 'rgb(30,225,125)';
-				document.getElementById('eraseStatus').innerHTML = 'Job Erased<br /><br />Please go to the START menu and open<br /><br />"Devices and Printers"<br /><br />to reconnect the mill';
+				document.getElementById('eraseStatus').style.textAlign = 'left';
+				var eraseInstructions = 'Erase attempt successful, but the Roland\'s driver doesn\'t always cooperate.<ol><li>In the Start menu, open "Devices and Printers."</li><li>Double click the Roland\'s icon to see the driver\'s queue.</li><li>If jobs are still listed, try erasing again.</li></ol>';
+				document.getElementById('eraseStatus').innerHTML = eraseInstructions;
 				document.getElementById('printerButton').style.display = 'inline-block';
 			}
 			else {
 				document.getElementById('eraseStatus').innerHTML = msg.data;
 			}
-		}
-		else if (msg.type==='sync') {
-			updateXY(msg.data);
 		}
 	};
 
@@ -50,21 +49,6 @@ function sync() {
 	};
 
 	ws.send(JSON.stringify(syncMsg));
-}
-
-////////////////////////////////////////
-////////////////////////////////////////
-////////////////////////////////////////
-
-var rolandWidth = 8.625 * 1016;
-var rolandHeight = 6.25 * 1016;
-
-function updateXY (data) {
-	var xRel = data.x / rolandWidth;
-	var yRel = 1 - (data.y / rolandHeight);
-
-	document.getElementById('xBar').style.left = ((xRel * 100).toFixed(2))+'%';
-	document.getElementById('yBar').style.top = ((yRel * 100).toFixed(2))+'%';
 }
 
 ////////////////////////////////////////
@@ -140,6 +124,7 @@ function Roland_eraseMemory(){
 
 		document.getElementById('eraseBox').style.display = 'block';
 		document.getElementById('eraseBox').style.backgroundColor = 'rgb(225,30,30)';
+		document.getElementById('eraseStatus').style.textAlign = 'center';
 		document.getElementById('eraseStatus').innerHTML = 'Waiting for response...';
 		document.getElementById('printerButton').style.display = 'none';
 	}

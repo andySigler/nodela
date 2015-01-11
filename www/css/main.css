@@ -31,11 +31,12 @@ body{
 	margin-left:50px;
 }
 .board_container{
-	position: absolute;
+	position: relative;
+	float:left;
 	background-color: rgba(0,0,0,0);
 	display:block;
-	left:340px;
-	top:250px;
+	left:40px;
+	top:20px;
 }
 
 .buttons_container{
