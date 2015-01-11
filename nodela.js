@@ -14,7 +14,7 @@ console.log('');
 ////////////////////////////////////////////
 
 var sys = require('sys')
-var process = require('child_process');
+var childProcess = require('child_process');
 
 var _test = false;
 var _windows = true;
@@ -53,7 +53,7 @@ console.log('To quit, close this terminal window');
 
 var ws = require('ws');
 
-var execTemp = process.exec;
+var execTemp = childProcess.exec;
 var tempCommand = _windows ? 'start' : 'open';
 execTemp(tempCommand+' http://localhost:'+http_port,function(err,stdin,stdout){
 	if(err) {
@@ -361,7 +361,7 @@ function eraseRoland(){
 
 	function fireCommand(cmd,onSuccess,onError){
 
-		var exec = process.exec;
+		var exec = childProcess.exec;
 
 		exec(cmd,function(error,stdin,stdout){
 			if(error){
