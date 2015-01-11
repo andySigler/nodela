@@ -3,7 +3,7 @@
 
 Nodela was developed for PCB fabrication using the Roland-Modela. It is a browser-based interface for quickly sending PCB designs and toolpaths from an Eagle .brd file to the milling machine.
 
-####Software Features
+#####Features
  - Node.js script
  	- Creates final file and writes to Roland drivers
  - Drag .brd Eagle file into interface to parse the gerber
