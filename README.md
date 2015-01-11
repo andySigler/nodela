@@ -33,10 +33,8 @@ npm install
 ```
 ###Use
 
-With 
-
-To run:
+To run with node:
 ```
-node app.js
+node nodela.js
 ```
 The script will attempt to open `localhost` in your default browser, and the interface will prompt you to drag your `.brd` Eagle file onto the screen.
