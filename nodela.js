@@ -16,8 +16,6 @@ console.log('');
 var sys = require('sys')
 var exec = require('child_process').exec;
 
-var fs = require('fs');
-
 var _test = false;
 var _windows = true;
 
