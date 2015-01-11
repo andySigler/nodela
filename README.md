@@ -1,7 +1,7 @@
 #nodela
 ##Browser Interface for the Roland-Modela
 
-Nodela was developed for PCB fabrication using the Roland-Modela. It is a browser-based interface for quickly sending PCB designs and toolpaths from an Eagle .brd file to the milling machine.
+Nodela was developed for PCB fabrication using the Roland-Modela. It is a browser-based interface for quickly sending PCB designs and toolpaths from an Eagle `.brd` file to the milling machine.
 
 Repository also includes a redesigned bed plate, in order to avoid using any tape. The `roland_bed.ai` file inside `./resources` was designed to be laser cut into flat delrin. Threaded inserts are then hammered in, and washers are used to hold down the PCB.
 
@@ -37,4 +37,4 @@ To run:
 ```
 node app.js
 ```
-Once the script starts, and open your default browser to 'localhost'.
+The script will attempt to open `localhost` in your default browser, and the interface will prompt you to drag your `.brd` Eagle file onto the screen.
