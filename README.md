@@ -6,7 +6,7 @@ Nodela was developed for PCB fabrication using the Roland-Modela. It is a browse
  - Node.js script writes files to Roland drivers
  - Load your your Eagle .brd file by dragging into the browser
  - Interface recognizes
- 	- Wires
+ 	- Wires (pre-designed toolpaths)
  	- Holes
  	- Vias
 
