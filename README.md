@@ -1,5 +1,5 @@
 #nodela
-##Browser Interface for the Roland MDX-15/20 milling machines
+##Browser Interface for the Roland MDX-15/20
 
 Nodela was developed for PCB fabrication using the MDX-15/20 milling machines. It is a browser-based interface for quickly sending PCB designs and toolpaths from an Eagle `.brd` file to the milling machine.
 
