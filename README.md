@@ -27,7 +27,7 @@ Repository also includes a redesigned bed plate, in order to avoid using any tap
 
 ###Install
 
-This version must be run on a Window's PC, with the MDX-15/20 drivers already installed. Using the Modela without any drivers requires further research. Please contact me if you have any helpful information on this (because doing this with embedded linux would be badass...)
+This version must be run on a Window's PC, with the MDX-15/20 drivers already installed. Using the Modela without any drivers requires further research and probably some USB sniffing. Please contact me if you have any helpful information on this (because doing this with embedded linux would be badass...)
 
 Node.js and npm must already be installed on the Window's PC.
 
