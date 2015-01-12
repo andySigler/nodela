@@ -16,8 +16,8 @@ console.log('');
 var sys = require('sys')
 var childProcess = require('child_process');
 
-var _test = false;
-var _windows = true;
+var _test = true;
+var _windows = false;
 
 ////////////////////////////////////////////
 ////////////////////////////////////////////
@@ -230,12 +230,14 @@ var handlers = {
 		var job_text = 'PA;PA;VS2;';
 		for(var i=1;i<=iterations;i++){
 			var stepDepth = Math.floor(radius * i);
-			job_text += makeIteration(stepDepth);
+			job_text += makeIteration(stepDepth, true);
 		}
 
 		// now do the one rollover depth (always happens)
 		var finalDepth = (iterations*radius)+roloverDepth;
-		job_text += makeIteration(finalDepth);
+		job_text += makeIteration(finalDepth, true);
+
+		job_text += makeIteration(3, false);
 
 		job_text += 'PU;!MC0;PU';
 		job_text += theRoland.coord.x;
@@ -249,7 +251,7 @@ var handlers = {
 		///////////
 		///////////
 
-		function makeIteration(depth){
+		function makeIteration(depth, raiseHead){
 			depth *= -1;
 			var text = '!PZ';
 			text += depth;
@@ -258,22 +260,43 @@ var handlers = {
 			for(var l=0;l<lines.length;l++){
 				var cuts = lines[l];
 				if(cuts.length>0){
-					text += 'PU;PU';
-					text += cuts[0].x + theRoland.coord.x;
-					text += ','
-					text += cuts[0].y + theRoland.coord.y;
-					text += ';\r\n';
+					text += flyTo(cuts[0]);
 					for(var c=0;c<cuts.length;c++){
-						text += 'PD';
-						text += cuts[c].x + theRoland.coord.x;
-						text += ',';
-						text += cuts[c].y + theRoland.coord.y;
-						text += ';\r\n';
+						text += millTo(cuts[c]);
+						if(raiseHead) {
+							text += flyTo(cuts[c]);
+						}
 					}
 				}
 			}
 
 			return text;
+		}
+
+		///////////
+		///////////
+		///////////
+
+		function millTo (cut) {
+			var string = 'PD;PD';
+			string += cut.x + theRoland.coord.x;
+			string += ',';
+			string += cut.y + theRoland.coord.y;
+			string += ';\r\n';
+			return string;
+		}
+
+		///////////
+		///////////
+		///////////
+
+		function flyTo (cut) {
+			var string = 'PU;PU';
+			string += cut.x + theRoland.coord.x;
+			string += ',';
+			string += cut.y + theRoland.coord.y;
+			string += ';\r\n';
+			return string;
 		}
 
 		///////////

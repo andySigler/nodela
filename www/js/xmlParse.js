@@ -70,17 +70,26 @@ function parseLayers(brd){
 
 			for(var i=0;i<this.cuts.length;i++){
 				if(this.cuts[i].length>1){
-					var startX = this.cuts[i][0].x;
-					var startY = this.cuts[i][0].y;
-					var endX = this.cuts[i][1].x;
-					var endY = this.cuts[i][1].y;
+					var prev = {
+						'x':this.cuts[i][0].x,
+						'y':this.cuts[i][0].y
+					};
+					for(var m=1;m<this.cuts[i].length;m++) {
+						var startX = prev.x;
+						var startY = prev.y;
+						var endX = this.cuts[i][m].x;
+						var endY = this.cuts[i][m].y;
 
-					this.context.beginPath();
-					this.context.moveTo((startX*_scale)+_pad,_h-((startY*_scale)+_pad));
-					this.context.lineTo((endX*_scale)+_pad,_h-((endY*_scale)+_pad));
-					this.context.stroke();
+						prev.x = endX;
+						prev.y = endY;
+
+						this.context.beginPath();
+						this.context.moveTo((startX*_scale)+_pad,_h-((startY*_scale)+_pad));
+						this.context.lineTo((endX*_scale)+_pad,_h-((endY*_scale)+_pad));
+						this.context.stroke();
+					}
 				}
-				else{
+				else if(this.cuts[i].length){
 					var tempX = this.cuts[i][0].x;
 					var tempY = this.cuts[i][0].y;
 
@@ -116,21 +125,42 @@ function parseLayers(brd){
 		var c = makeCanvas('Layer '+n);
 		c.canvas.parent = c;
 
+		var currentLine = [];
+		var prev = {'x':NaN,'y':NaN};
+
 		for(var i=0;i<layerWires.length;i++){
 
 			var wire = layerWires[i];
 
-			var thisCut = [];
-			thisCut.push({
-				'x':wire.x1,
-				'y':wire.y1
-			});
-			thisCut.push({
+			// if it has a different starting point as the previous wire's ending point,
+			// then that means it's a new 'cut' array
+			if(i===0) {
+				currentLine.push({
+					'x':wire.x1,
+					'y':wire.y1
+				});
+			}
+			else if (prev.x!==wire.x1 && prev.y!==wire.y1) {
+				c.cuts.push(currentLine);
+				currentLine = [];
+				currentLine.push({
+					'x':wire.x1,
+					'y':wire.y1
+				});
+			}
+
+			currentLine.push({
 				'x':wire.x2,
 				'y':wire.y2
 			});
-			c.cuts.push(thisCut);
+
+			prev.x = wire.x2;
+			prev.t = wire.y2;
 		}
+
+		// add the final line we constructed
+		c.cuts.push(currentLine);
+
 	}
 
 	// the HOLES canvas layer
@@ -280,6 +310,7 @@ function printLayer(){
 	var parent = document.getElementById('canvas_container');
 	if(parent.visibleLayer){
 		var cuts = parent.visibleLayer.parent.cuts;
+		console.log(cuts);
 		Roland_sendCuts(cuts);
 	}
 }
