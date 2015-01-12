@@ -18,6 +18,12 @@ Repository also includes a redesigned bed plate, in order to avoid using any tap
 
 This version must be run on a Window's PC, with the MDX-15/20 drivers already installed. Using the Modela without any drivers requires further research. Please contact me if you have any helpful information on this.
 
+#####What nodela does NOT do
+
+ - Interpret and mill routes from your Eagle .brd file
+ 	- All routes must be designed in eagle using the Wire command
+ 	- I prefer drawing this by hand, but for the lazy check out [fablab-mill-n-drill.ulp](http://mlab.taik.fi/paja/?p=1874)
+
 ###Install
 
 Node.js and npm must already be installed on the Window's PC.
