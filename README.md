@@ -16,8 +16,6 @@ Repository also includes a redesigned bed plate, in order to avoid using any tap
  	- Recognizes Vias
  - Jog the mills's head to select the cut's origin
 
-This version must be run on a Window's PC, with the MDX-15/20 drivers already installed. Using the Modela without any drivers requires further research. Please contact me if you have any helpful information on this.
-
 #####What nodela does NOT do
 
  - Does NOT mill Routes
@@ -28,6 +26,8 @@ This version must be run on a Window's PC, with the MDX-15/20 drivers already in
  	- If you want a curve in your mill job, draw tons of little lines, or use the ULP linked to above
 
 ###Install
+
+This version must be run on a Window's PC, with the MDX-15/20 drivers already installed. Using the Modela without any drivers requires further research. Please contact me if you have any helpful information on this.
 
 Node.js and npm must already be installed on the Window's PC.
 
