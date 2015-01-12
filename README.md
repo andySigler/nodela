@@ -8,12 +8,15 @@ Nodela was developed for PCB fabrication using the MDX-15/20 milling machines. I
 Repository also includes a redesigned bed plate, in order to avoid using any tape. The `roland_bed.ai` file inside `./resources` was designed to be laser cut into flat delrin. Threaded inserts are then hammered in, and washers are used to hold down the PCB.
 
 ###Sofware Features
+
 #####Node.js script
  - Creates final file and writes to MDX-15/20 drivers
+
 #####Drag .brd Eagle file into interface to parse the gerber
  - Recognizes Wires (pre-designed toolpaths)
  - Recognizes Part Holes
  - Recognizes Vias
+ 
 #####Jog the mills's head to select the cut's origin
  - Mill anywhere on your copper by jogging the head around with HTML5 buttons
 
