@@ -25,8 +25,8 @@ Repository also includes a redesigned bed plate, in order to avoid using any tap
 #####Does NOT mill Routes
  - Toolpath lines for making Routes must be designed in eagle using the Wire command (these are simple lines)
  - I prefer drawing these by hand, but for the lazy check out this great ULP: [fablab-mill-n-drill.ulp](http://mlab.taik.fi/paja/?p=1874)
- 
-####Does NOT interpret arcs or circles
+
+#####Does NOT interpret arcs or circles
  - The current version parses Wires in your .brd file, and assumes they are all straight lines
  - If you want a curve in your mill job, draw tons of little lines, or use the ULP linked to above
 
