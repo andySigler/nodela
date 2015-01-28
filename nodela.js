@@ -218,10 +218,10 @@ var handlers = {
 		var lines = data.lines;
 
 		var depth = Math.abs(Math.floor(Number(data.depth)));
-		if(!depth || depth<3) depth = 3; // minimum cut depth
+		if(!depth || depth<3) depth = 2; // minimum cut depth
 
 		var diameter = Math.floor(Number(data.diameter));
-		if(!diameter || diameter<16) depth = 16; // minimum bit diameter
+		if(!diameter || diameter<16) diameter = 16; // minimum bit diameter
 
 		var radius = Math.round(diameter/2);
 
