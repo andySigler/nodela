@@ -140,7 +140,7 @@ function parseLayers(brd){
 					'y':wire.y1
 				});
 			}
-			else if (prev.x!==wire.x1 && prev.y!==wire.y1) {
+			else if (prev.x!==wire.x1 || prev.y!==wire.y1) {
 				c.cuts.push(currentLine);
 				currentLine = [];
 				currentLine.push({
