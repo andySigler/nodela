@@ -214,14 +214,17 @@ var handlers = {
 	///////////
 
 	'mill' : function(data){
+
+		var minDepth = 3;
+		var minDiameter = 10; // 1/100 inch bit
 		// get the lines
 		var lines = data.lines;
 
 		var depth = Math.abs(Math.floor(Number(data.depth)));
-		if(!depth || depth<3) depth = 3; // minimum cut depth
+		if(!depth || depth<minDepth) depth = minDepth;
 
 		var diameter = Math.floor(Number(data.diameter));
-		if(!diameter || diameter<16) diameter = 16; // minimum bit diameter
+		if(!diameter || diameter<minDiameter) diameter = minDiameter;
 
 		var radius = Math.round(diameter/2);
 
@@ -229,19 +232,23 @@ var handlers = {
 		var iterations = Math.floor(depth/radius);
 		var roloverDepth = depth % radius;
 
+		// riase the head between line segments if
+		// the bit is 1/64 inch or 1/100 inch
+		var shouldHeadRaise = false;
+		if(diameter<16) shouldHeadRaise = true;
+
 		// go through ever full-radius-depth iteration
 		var job_text = 'PA;PA;VS2;';
 		for(var i=1;i<=iterations;i++){
 			var stepDepth = Math.floor(radius * i);
-			job_text += makeIteration(stepDepth, true);
+			job_text += makeIteration(stepDepth, shouldHeadRaise);
 		}
 
 		// now do the one rollover depth (always happens)
 		var finalDepth = (iterations*radius)+roloverDepth;
-		job_text += makeIteration(finalDepth, true);
+		job_text += makeIteration(finalDepth, shouldHeadRaise);
 
-		job_text += makeIteration(3, false);
-
+		// stop the spindle, and return to the origin
 		job_text += 'PU;!MC0;PU';
 		job_text += theRoland.coord.x;
 		job_text += ',';

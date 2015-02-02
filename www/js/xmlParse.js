@@ -160,7 +160,6 @@ function parseLayers(brd){
 
 		// add the final line we constructed
 		c.cuts.push(currentLine);
-
 	}
 
 	// the HOLES canvas layer
