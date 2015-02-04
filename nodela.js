@@ -226,26 +226,36 @@ var handlers = {
 		var diameter = Math.floor(Number(data.diameter));
 		if(!diameter || diameter<minDiameter) diameter = minDiameter;
 
-		var radius = Math.round(diameter/2);
+		var plungeDepth = Math.round(diameter/4);
 
 		// decide how many times we have go around cutting
-		var iterations = Math.floor(depth/radius);
-		var roloverDepth = depth % radius;
+		var iterations = Math.floor(depth/plungeDepth);
+		var roloverDepth = depth % plungeDepth;
 
 		// riase the head between line segments if
 		// the bit is 1/64 inch or 1/100 inch
 		var shouldHeadRaise = false;
-		if(diameter<16) shouldHeadRaise = true;
+		var VS_value = 6;
+		var VZ_value = 0.5;
+		var RC_value = 12000;
+		if (diameter<16) {
+			shouldHeadRaise = true;
+			VS_value = 2.4;
+			VZ_value = 0.2;
+		}
 
-		// go through ever full-radius-depth iteration
-		var job_text = 'PA;PA;VS2;';
+		// go through every full-plungeDepth iteration
+		var job_text = 'PA;PA;';
+		job_text += 'VS'+VS_value+';';
+		job_text += '!VZ'+VZ_value+';';
+		job_text += '!RC'+RC_value+';';
 		for(var i=1;i<=iterations;i++){
-			var stepDepth = Math.floor(radius * i);
+			var stepDepth = Math.floor(plungeDepth * i);
 			job_text += makeIteration(stepDepth, shouldHeadRaise);
 		}
 
 		// now do the one rollover depth (always happens)
-		var finalDepth = (iterations*radius)+roloverDepth;
+		var finalDepth = depth;
 		job_text += makeIteration(finalDepth, shouldHeadRaise);
 
 		// stop the spindle, and return to the origin

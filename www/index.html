@@ -7,21 +7,19 @@
 		<script type="text/javascript" src="./js/wsStuff.js"></script>
 	</head>
 	<body>
-		<div id="dragWords">
-			<h1>DRAG .BRD FILE ON THE SCREEN</h2>
-		</div>
 		<div class="container" id="container">
-
 			<div class="buttons_container">
 
-				<button onclick="mirror()" id="mirror_button" class="bigbutton">MIRROR</button>
+				<h1 style="width:100%;text-align:center;color:rgb(205,205,205);margin-top:0px;">nodela</h1>
+
+				<button onclick="mirror()" id="mirror_button" class="bigbutton" style="display:none">MIRROR</button>
 
 				<div id="layerButtons_div" class="layerButtons_div">
 				</div>
 
 				<div class="divider"></div>
 
-				<input class="stepSize_bar" id="stepSize_bar" type="range" min="0" max="6" oninput="setStepSize(this.value)"/>
+				<input class="stepSize_bar" id="stepSize_bar" type="range" min="0" max="7" oninput="setStepSize(this.value)"/>
 				<div id="stepSize_display" class="stepSize_display"/></div>
 
 				<div id="jog_div" class="jog_div">
@@ -51,21 +49,25 @@
 				</select>
 				<input class="layer_input" id="cutDepth" type="text"placeholder="How Deep? (inch)" />
 
-				<div style="font-size:0.75rem;text-align:right;width:100%;margin-bottom:10px;margin-top:0px;">leave "How Deep?" empty<br />when milling just copper away</div>
+				<div style="font-size:0.8rem;text-align:right;width:100%;margin-bottom:10px;margin-top:0px;">leave "How Deep?" empty<br />when milling routes</div>
 
 				<div class="divider"></div>
 
 				<button onclick="printLayer()" id="print_button" class="bigbutton">Send Layer to Roland</button>
 				<button onclick="Roland_eraseMemory()" id="erase_button" class="bigbutton">Delete Job</button>
+				<button onclick="loadFacingPlan()" id="facing_button" class="bigbutton">Load Facing Plan</button>
 
 			</div>
 
 			<div class="board_container">
 				<div id="canvas_container" class="canvasContainer">
+					<div id="dragWords">
+						<h2>DRAG .brd FILE ON THE SCREEN</h2>
+					</div>
 				</div>
 
-				<span id="widthLabel">inches</span>
-				<span id="heightLabel">cm</span>
+				<span id="widthLabel" style="display:none">inches</span>
+				<span id="heightLabel" style="display:none">cm</span>
 
 				<div class="originCircle" id="originCircle"></div>
 				<img class="originArrow" id="originArrow" src="./arrow.png">
@@ -120,7 +122,7 @@
 
 			function setStepSize(val){
 				// step sizes in inches
-				var possibleSteps = [0.01,0.03,0.06,0.1,0.3,0.5,1];
+				var possibleSteps = [0.002,0.01,0.03,0.06,0.1,0.3,0.5,1];
 				var inches = possibleSteps[val];
 				var cm = (inches * 2.54).toFixed(2);
 				document.getElementById('stepSize_display').innerHTML = inches+' inch ('+cm+' cm)';

@@ -19,7 +19,7 @@ body{
 	height:2px;
 }
 .container{
-	display:none;
+	/*display:none;*/
 
 	position: relative;
 	top: 50%;
@@ -27,7 +27,7 @@ body{
 	-ms-transform: translateY(-50%);
 	transform: translateY(-50%);
 
-	margin-top: 50px;
+	margin-top: 30px;
 	margin-left:50px;
 }
 .board_container{
@@ -332,6 +332,11 @@ button:hover{
 
 #erase_button:hover{
 	background-color: rgb(225,30,30);
+	color: white;
+}
+
+#facing_button:hover {
+	background-color: rgb(28,129,212);
 	color: white;
 }
 
