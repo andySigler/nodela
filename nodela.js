@@ -336,7 +336,7 @@ var handlers = {
 
 function moveHead(point){
 
-	var jogText = 'PA;PA;VS10;!VZ5;!PZ0,300;!MC0;';
+	var jogText = 'PA;PA;VS10;!VZ10;!PZ0,300;!MC0;';
 
 	// move up
 	jogText += 'PU;';
