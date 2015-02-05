@@ -155,7 +155,7 @@ function parseLayers(brd){
 			});
 
 			prev.x = wire.x2;
-			prev.t = wire.y2;
+			prev.y = wire.y2;
 		}
 
 		// add the final line we constructed
@@ -417,8 +417,6 @@ function loadFile(e){
 //////////////
 
 function displayBoard(brd) {
-
-	console.log(JSON.stringify(brd,undefined,2));
 
 	document.getElementById('widthLabel').style.display = 'inline';
 	document.getElementById('heightLabel').style.display = 'inline';

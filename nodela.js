@@ -19,8 +19,8 @@ console.log('');
 var sys = require('sys')
 var childProcess = require('child_process');
 
-var _test = false;
-var _windows = true;
+var _test = true;
+var _windows = false;
 
 ////////////////////////////////////////////
 ////////////////////////////////////////////
@@ -277,7 +277,7 @@ var handlers = {
 			depth *= -1;
 			var text = '!PZ';
 			text += depth;
-			text += ',30;!MC1;\r\n';
+			text += ',50;!MC1;\r\n';
 
 			for(var l=0;l<lines.length;l++){
 				var cuts = lines[l];
@@ -336,7 +336,7 @@ var handlers = {
 
 function moveHead(point){
 
-	var jogText = 'PA;PA;VS3;!PZ0,300;!MC0;';
+	var jogText = 'PA;PA;VS10;!VZ5;!PZ0,300;!MC0;';
 
 	// move up
 	jogText += 'PU;';
