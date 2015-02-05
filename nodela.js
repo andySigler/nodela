@@ -286,7 +286,7 @@ var handlers = {
 					for(var c=0;c<cuts.length;c++){
 						text += millTo(cuts[c]);
 						if(c>0 && raiseHead) {
-							text += 'PU;\r\n';
+							//text += 'PU;\r\n';
 						}
 					}
 				}
