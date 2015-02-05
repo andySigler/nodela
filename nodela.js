@@ -215,7 +215,7 @@ var handlers = {
 
 	'mill' : function(data){
 
-		var minDepth = 3;
+		var minDepth = 4; // minimum depth we will mill
 		var minDiameter = 10; // 1/100 inch bit
 		// get the lines
 		var lines = data.lines;
@@ -234,15 +234,13 @@ var handlers = {
 
 		// riase the head between line segments if
 		// the bit is 1/64 inch or 1/100 inch
-		var shouldHeadRaise = false;
 		var VS_value = 6;
-		var VZ_value = 1;
+		var VZ_value = 1.2;
 		var RC_value = 12000;
 
 		if (diameter<20) {
-			shouldHeadRaise = true;
 			VS_value = 2.4;
-			VZ_value = 0.5;
+			VZ_value = 0.6;
 		}
 
 		// go through every full-plungeDepth iteration
@@ -250,14 +248,15 @@ var handlers = {
 		job_text += 'VS'+VS_value+';';
 		job_text += '!VZ'+VZ_value+';';
 		job_text += '!RC'+RC_value+';';
+
 		for(var i=1;i<=iterations;i++){
 			var stepDepth = Math.floor(plungeDepth * i);
-			job_text += makeIteration(stepDepth, shouldHeadRaise);
+			job_text += makeIteration(stepDepth);
 		}
 
 		// now do the one rollover depth (always happens)
 		var finalDepth = depth;
-		job_text += makeIteration(finalDepth, shouldHeadRaise);
+		job_text += makeIteration(finalDepth);
 
 		// stop the spindle, and return to the origin
 		job_text += 'PU;!MC0;PU';
@@ -272,7 +271,7 @@ var handlers = {
 		///////////
 		///////////
 
-		function makeIteration(depth, raiseHead){
+		function makeIteration(depth){
 
 			depth *= -1;
 			var text = '!PZ';
@@ -285,9 +284,6 @@ var handlers = {
 					text += flyTo(cuts[0]);
 					for(var c=0;c<cuts.length;c++){
 						text += millTo(cuts[c]);
-						if(c>0 && raiseHead) {
-							//text += 'PU;\r\n';
-						}
 					}
 				}
 			}
