@@ -215,7 +215,7 @@ var handlers = {
 
 	'mill' : function(data){
 
-		var minDepth = 4; // minimum depth we will mill
+		var minDepth = 5; // minimum depth we will mill
 		var minDiameter = 10; // 1/100 inch bit
 		// get the lines
 		var lines = data.lines;
