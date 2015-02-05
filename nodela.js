@@ -19,8 +19,8 @@ console.log('');
 var sys = require('sys')
 var childProcess = require('child_process');
 
-var _test = true;
-var _windows = false;
+var _test = false;
+var _windows = true;
 
 ////////////////////////////////////////////
 ////////////////////////////////////////////
