@@ -4,7 +4,7 @@
   	"type" : "git",
   	"url" : "http://github.com/andySigler/nodela.git"
   },
-  "description": "NodeJS server for controlling the Roland-MODELA CNC milling machine",
+  "description": "NodeJS server for controlling the Roland-MODELA milling machine",
   "author": "Andy Sigler",
   "dependencies": {
     "ws": "*"

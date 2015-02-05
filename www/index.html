@@ -11,6 +11,7 @@
 			<div class="buttons_container">
 
 				<h1 style="width:100%;text-align:center;color:rgb(205,205,205);margin-top:0px;">nodela</h1>
+				<div style="width:100%;text-align:center;color:rgb(205,205,205);margin-top:0px;">github.com/andysigler/nodela</div>
 
 				<button onclick="mirror()" id="mirror_button" class="bigbutton" style="display:none">MIRROR</button>
 
@@ -19,8 +20,10 @@
 
 				<div class="divider"></div>
 
+				<div class="stepSize_label">Step Size</div>
+
 				<input class="stepSize_bar" id="stepSize_bar" type="range" min="0" max="7" oninput="setStepSize(this.value)"/>
-				<div id="stepSize_display" class="stepSize_display"/></div>
+				<div class="stepSize_display" id="stepSize_display"></div>
 
 				<div id="jog_div" class="jog_div">
 					<button class="jog_button jog_up" onclick="jog(this,'up')">
@@ -49,7 +52,7 @@
 				</select>
 				<input class="layer_input" id="cutDepth" type="text"placeholder="How Deep? (inch)" />
 
-				<div style="font-size:0.8rem;text-align:right;width:100%;margin-bottom:10px;margin-top:0px;">leave "How Deep?" empty<br />when milling routes</div>
+				<div class="howDeep_instruction">leave "How Deep?" <strong class="">empty</strong><br />when milling routes</div>
 
 				<div class="divider"></div>
 

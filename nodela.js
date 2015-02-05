@@ -226,7 +226,7 @@ var handlers = {
 		var diameter = Math.floor(Number(data.diameter));
 		if(!diameter || diameter<minDiameter) diameter = minDiameter;
 
-		var plungeDepth = Math.round(diameter/4);
+		var plungeDepth = Math.floor(diameter/4);
 
 		// decide how many times we have go around cutting
 		var iterations = Math.floor(depth/plungeDepth);
@@ -238,7 +238,8 @@ var handlers = {
 		var VS_value = 6;
 		var VZ_value = 0.5;
 		var RC_value = 12000;
-		if (diameter<16) {
+
+		if (diameter<20) {
 			shouldHeadRaise = true;
 			VS_value = 2.4;
 			VZ_value = 0.2;
@@ -272,10 +273,11 @@ var handlers = {
 		///////////
 
 		function makeIteration(depth, raiseHead){
+
 			depth *= -1;
 			var text = '!PZ';
 			text += depth;
-			text += ',50;!MC1;';
+			text += ',30;!MC1;\r\n';
 
 			for(var l=0;l<lines.length;l++){
 				var cuts = lines[l];
@@ -283,13 +285,12 @@ var handlers = {
 					text += flyTo(cuts[0]);
 					for(var c=0;c<cuts.length;c++){
 						text += millTo(cuts[c]);
-						if(raiseHead) {
-							text += flyTo(cuts[c]);
+						if(c>0 && raiseHead) {
+							text += 'PU;\r\n';
 						}
 					}
 				}
 			}
-
 			return text;
 		}
 

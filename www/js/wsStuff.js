@@ -84,6 +84,8 @@ function Roland_sendCuts(lines){
 			bitDiameter = Math.round(bitDiameter*1016);
 			cutDepth = Math.round(cutDepth*1016);
 
+			console.log(lines);
+
 			var msg = {
 				'type' : 'mill',
 				'data' : {

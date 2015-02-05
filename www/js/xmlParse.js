@@ -4,8 +4,6 @@
 
 function parseLayers(brd){
 
-	console.log(brd);
-
 	var parent = document.getElementById('canvas_container');
 	parent.innerHTML = '';
 	document.getElementById('layerButtons_div').innerHTML = '';
@@ -166,14 +164,21 @@ function parseLayers(brd){
 
 	// the HOLES canvas layer
 
-	var c = makeCanvas('Holes');
-	c.canvas.parent = c;
+	var c;
+	var noHoles = true;
 
 	for(var p in brd.parts){
 		var thisPart = brd.parts[p];
 
 		if(thisPart.holes){
 			for(var i=0;i<thisPart.holes.length;i++){
+
+				if(noHoles) {
+					noHoles = false;
+					c = makeCanvas('Holes');
+					c.canvas.parent = c;
+				}
+
 				var thisHole = thisPart.holes[i];
 
 				var thisCut = [];
@@ -189,10 +194,16 @@ function parseLayers(brd){
 
 	// the VIAS canvas layer
 
-	var c = makeCanvas('Vias');
-	c.canvas.parent = c;
+	var c;
+	var noVias = true;
 
 	for(var v in brd.vias){
+
+		if(noVias) {
+			noVias = false;
+			c = makeCanvas('Vias');
+			c.canvas.parent = c;
+		}
 		var thisVia = brd.vias[v];
 
 		var thisCut = [];
@@ -311,7 +322,6 @@ function printLayer(){
 	var parent = document.getElementById('canvas_container');
 	if(parent.visibleLayer){
 		var cuts = parent.visibleLayer.parent.cuts;
-		console.log(cuts);
 		Roland_sendCuts(cuts);
 	}
 }
@@ -408,7 +418,6 @@ function loadFile(e){
 
 function displayBoard(brd) {
 
-	document.getElementById('dragWords').style.display = 'none';
 	document.getElementById('widthLabel').style.display = 'inline';
 	document.getElementById('heightLabel').style.display = 'inline';
 	document.getElementById('mirror_button').style.display = 'inline-block';
