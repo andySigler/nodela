@@ -236,13 +236,13 @@ var handlers = {
 		// the bit is 1/64 inch or 1/100 inch
 		var shouldHeadRaise = false;
 		var VS_value = 6;
-		var VZ_value = 0.5;
+		var VZ_value = 1;
 		var RC_value = 12000;
 
 		if (diameter<20) {
 			shouldHeadRaise = true;
 			VS_value = 2.4;
-			VZ_value = 0.2;
+			VZ_value = 0.5;
 		}
 
 		// go through every full-plungeDepth iteration
