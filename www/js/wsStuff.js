@@ -77,7 +77,7 @@ function Roland_sendJog(axis,amount){
 function Roland_sendCuts(lines){
 
 	var bitDiameter = Number(document.getElementById('bitDiameter').value);
-	if(bitDiameter!==NaN && bitDiameter>=0 && bitDiameter<0.5){
+	if(bitDiameter!==NaN && bitDiameter>=0){
 		var cutDepth = Number(document.getElementById('cutDepth').value);
 		if(cutDepth!==NaN && cutDepth>=0 && cutDepth<0.33){
 
