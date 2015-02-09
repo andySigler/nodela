@@ -230,7 +230,6 @@ var handlers = {
 
 		// decide how many times we have go around cutting
 		var iterations = Math.floor(depth/plungeDepth);
-		var roloverDepth = depth % plungeDepth;
 
 		// riase the head between line segments if
 		// the bit is 1/64 inch or 1/100 inch
@@ -249,14 +248,30 @@ var handlers = {
 		job_text += '!VZ'+VZ_value+';';
 		job_text += '!RC'+RC_value+';';
 
-		for(var i=1;i<=iterations;i++){
-			var stepDepth = Math.floor(plungeDepth * i);
-			job_text += makeIteration(stepDepth);
-		}
+		// loop through all lines
+		for(var l=0;l<lines.length;l++){
 
-		// now do the one rollover depth (always happens)
-		var finalDepth = depth;
-		job_text += makeIteration(finalDepth);
+			// we will go through this line for each iteration
+			// starting shallow, and going down until we've reached the full depth
+			var cuts = lines[l];
+
+			var cutBackwards = false;
+
+			// then loop through the number of iteration we will take
+			// if we're only doing one pass, iterations will equal 0
+			for(var i=1;i<=iterations;i++){
+
+				// each iteration will go down a step in the plunge depth
+				var stepDepth = Math.floor(plungeDepth * i);
+
+				// create and save the new line at this depth
+				job_text += makeIteration(stepDepth, cuts, cutBackwards);
+				cutBackwards = !cutBackwards;
+			}
+
+			// now do the one final depth
+			job_text += makeIteration(depth, cuts, cutBackwards);
+		}
 
 		// stop the spindle, and return to the origin
 		job_text += 'PU;!MC0;PU';
@@ -271,22 +286,28 @@ var handlers = {
 		///////////
 		///////////
 
-		function makeIteration(depth){
+		function makeIteration(depth, cuts, backwards){
 
 			depth *= -1;
 			var text = '!PZ';
-			text += depth;
+			text += depth; // the current depth we will cut at
 			text += ',50;!MC1;\r\n';
 
-			for(var l=0;l<lines.length;l++){
-				var cuts = lines[l];
-				if(cuts.length>0){
-					text += flyTo(cuts[0]);
-					for(var c=0;c<cuts.length;c++){
-						text += millTo(cuts[c]);
-					}
+			var startIndex = backwards ? cuts.length-1 : 0;
+			var indexStep = backwards ? -1 : 1;
+
+			if(cuts.length){
+
+				// an array of cut points creates a line
+				// so start by flying above the first point in the line
+				text += flyTo(cuts[startIndex]);
+
+				// then cut to each point in the array
+				for(var c=startIndex;c<cuts.length && c>=0;c+=indexStep){
+					text += millTo(cuts[c]);
 				}
 			}
+
 			return text;
 		}
 
