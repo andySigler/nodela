@@ -68,6 +68,13 @@ function parseLayers(brd){
 
 			this.context.clearRect(0,0,this.canvas.width,this.canvas.height);
 
+			this.context.save();
+
+			var xOffset = Math.floor(brd.info.min.x*-1*_scale);
+			var yOffset = Math.floor(brd.info.min.y*_scale);
+
+			this.context.translate(xOffset,yOffset);
+
 			for(var i=0;i<this.cuts.length;i++){
 				if(this.cuts[i].length>1){
 					var prev = {
@@ -98,6 +105,8 @@ function parseLayers(brd){
 					this.context.fill();
 				}
 			}
+
+			this.context.restore();
 		};
 
 		////////////
@@ -233,8 +242,6 @@ function drawAllLayers(){
 		for(var i=0;i<cans.length;i++){
 			var layer = cans[i].parent;
 
-			var vizScale = 0.12;
-
 			var theWidth = Math.round(layer.width*vizScale);
 			var theHeight = Math.round(layer.height*vizScale);
 
@@ -298,7 +305,6 @@ function mirror(){
 				coord.x = (coord.x*-1)+can.parent.width;
 			}
 		}
-		var vizScale = 0.12;
 
 		var layer = can.parent;
 
@@ -371,8 +377,11 @@ function updateOriginArrow(){
 		var origin_warning = document.getElementById('origin_warning');
 		origin_warning.style.display = 'inline-block';
 
-		var y = obj.offsetHeight;
-		var x = (originArrow.parentNode.offsetWidth/2)+(obj.offsetWidth/2);
+		var boardOffsetX = Math.floor(currentBoard.info.min.x * vizScale);
+		var boardOffsetY = Math.floor(currentBoard.info.min.y * vizScale);
+
+		var y = obj.offsetHeight+boardOffsetY;
+		var x = (originArrow.parentNode.offsetWidth/2)+(obj.offsetWidth/2)+boardOffsetX;
 
 		originArrow.style.top = y+'px';
 		originArrow.style.right = x+'px';
@@ -380,7 +389,8 @@ function updateOriginArrow(){
 		originCircle.style.top = y+'px';
 		originCircle.style.right = x+'px';
 
-		origin_warning.style.left = 0+'px';
+		origin_warning.style.top = y+'px';
+		origin_warning.style.right = x+'px';
 	}
 }
 
@@ -402,9 +412,9 @@ function loadFile(e){
 
 			reader.onload = function(e){
 
-				var tempBoard = parseXML(reader.result);
+				currentBoard = parseXML(reader.result);
 
-				displayBoard(tempBoard);
+				displayBoard();
 			}
 
 			reader.readAsText(_F);
@@ -416,13 +426,16 @@ function loadFile(e){
 //////////////
 //////////////
 
-function displayBoard(brd) {
+var currentBoard = undefined;
+var vizScale = 0.12;
+
+function displayBoard() {
 
 	document.getElementById('widthLabel').style.display = 'inline';
 	document.getElementById('heightLabel').style.display = 'inline';
 	document.getElementById('mirror_button').style.display = 'inline-block';
 
-	parseLayers(brd);
+	parseLayers(currentBoard);
 	drawAllLayers();
 
 	updateOriginArrow();
@@ -556,7 +569,7 @@ function parseXML(theText){
 	}
 
 	var max={'x':-9999999,'y':-9999999};
-	var min={'x':9999999,'y':9999999};
+	var min={'x':0,'y':0};
 
 	function saveMinMax(x,y){
 		if(x<min.x) min.x = x;
@@ -632,29 +645,10 @@ function parseXML(theText){
 
 			myBoard.info = {
 				'width' : max.x-min.x,
-				'height' : max.y-min.y
+				'height' : max.y-min.y,
+				'min' : min,
+				'max' : max
 			};
-
-			var parts = myBoard.parts;
-			for(var n in parts){
-				parts[n].x -= min.x;
-				parts[n].y -= min.y;
-			}
-			var vias = myBoard.vias;
-			for(var n=0;n<vias.length;n++){
-				vias[n].x -= min.x;
-				vias[n].y -= min.y;
-			}
-			var wires = myBoard.wires;
-			for(var n in wires){
-				var thisLayer = wires[n];
-				for(var w in thisLayer){
-					thisLayer[w].x1 -= min.x;
-					thisLayer[w].y1 -= min.y;
-					thisLayer[w].x2 -= min.x;
-					thisLayer[w].y2 -= min.y;
-				}
-			}
 
 			return myBoard;
 		}

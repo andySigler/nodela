@@ -109,7 +109,7 @@ strong {
 	margin-right: auto;
 	overflow:auto;
 
-	border:0px dashed rgba(0,0,0,0.2);
+	border:1px dashed rgba(0,0,0,0.2);
 }
 canvas{
 	position:absolute;
@@ -353,7 +353,7 @@ button:hover{
 
 .origin_warning{
 	display:none;
-	position:relative;
+	position:absolute;
 	text-align: left;
 	margin-top: 15px;
 
@@ -362,6 +362,10 @@ button:hover{
 	-webkit-animation: circleFader 2s infinite;
 	-moz-animation: circleFader 2s infinite;
 	animation: circleFader 2s infinite;
+
+	-webkit-transform: translate(120%,-50%);
+	-moz-transform: translate(120%,-50%);
+	transform: translate(120%,-50%);
 
 	-webkit-animation-timing-function: ease-out;
 	-moz-animation-timing-function: ease-out;
