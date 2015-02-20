@@ -2,6 +2,10 @@
 //////////////////////////////////////////
 //////////////////////////////////////////
 
+var redColor = 'rgb(242,49,28)';
+var blueColor = 'rgb(28,129,212)';
+var greyColor = 'rgb(205,205,205)';
+
 function parseLayers(brd){
 
 	var parent = document.getElementById('canvas_container');
@@ -27,13 +31,15 @@ function parseLayers(brd){
 					cans[i].classList.remove('grayed');
 					parent.visibleLayer = cans[i];
 					if(cans[i].parent){
-						cans[i].parent.button.classList.add('button_selected');
+						cans[i].parent.button.style.backgroundColor = isMirrored ? blueColor : redColor;
+						cans[i].parent.button.style.color = 'white';
 					}
 				}
 				else{
 					cans[i].classList.add('grayed');
 					if(cans[i].parent){
-						cans[i].parent.button.classList.remove('button_selected');
+						cans[i].parent.button.style.color = 'black';
+						cans[i].parent.button.style.backgroundColor = greyColor;
 					}
 				}
 			}
@@ -232,6 +238,22 @@ function drawAllLayers(){
 
 	var parent = document.getElementById('canvas_container');
 
+	isMirrored = false;
+
+	var button = document.getElementById('mirror_button');
+	if(isMirrored){
+		button.classList.add('bottom_layer');
+		button.classList.remove('top_layer');
+		parent.classList.add('mirrored_line');
+		button.innerHTML = 'MIRRORED';
+	}
+	else{
+		button.classList.remove('bottom_layer');
+		button.classList.add('top_layer');
+		parent.classList.remove('mirrored_line');
+		button.innerHTML = 'NOT MIRRORED';
+	}
+
 	var cans = parent.getElementsByTagName('canvas');
 
 	if(cans.length>0){
@@ -251,7 +273,12 @@ function drawAllLayers(){
 			theWidth+=(padding*2);
 			theHeight+=(padding*2);
 
-			layer.draw(theWidth,theHeight,padding,'rgb(28,129,212)',2,vizScale);
+			var drawColor = isMirrored ? 'rgb(28,129,212)' : 'rgb(242,69,28)';
+
+			cans[i].parent.button.style.backgroundColor = isMirrored ? blueColor : redColor;
+			cans[i].parent.button.style.color = 'white';
+
+			layer.draw(theWidth,theHeight,padding,drawColor,2,vizScale);
 		}
 
 		parent.style.width = theWidth+'px';
@@ -285,14 +312,16 @@ function mirror(){
 
 	var button = document.getElementById('mirror_button');
 	if(isMirrored){
-		button.classList.add('mirrored');
+		button.classList.add('bottom_layer');
+		button.classList.remove('top_layer');
 		parent.classList.add('mirrored_line');
 		button.innerHTML = 'MIRRORED';
 	}
 	else{
-		button.classList.remove('mirrored');
+		button.classList.remove('bottom_layer');
+		button.classList.add('top_layer');
 		parent.classList.remove('mirrored_line');
-		button.innerHTML = 'MIRROR';
+		button.innerHTML = 'NOT MIRRORED';
 	}
 
 	for(var i=0;i<cans.length;i++){
@@ -315,7 +344,12 @@ function mirror(){
 		theWidth+=(padding*2);
 		theHeight+=(padding*2);
 
-		layer.draw(theWidth,theHeight,padding,'rgb(28,129,212)',2,vizScale);
+		var drawColor = isMirrored ? 'rgb(28,129,212)' : 'rgb(242,69,28)';
+
+		parent.visibleLayer.parent.button.style.backgroundColor = isMirrored ? blueColor : redColor;
+		parent.visibleLayer.parent.button.style.color = 'white';
+
+		layer.draw(theWidth,theHeight,padding,drawColor,2,vizScale);
 
 	}
 }

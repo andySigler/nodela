@@ -306,7 +306,7 @@ button{
 	border:1px solid black;
 }
 button:hover{
-	border:none;
+	/*border:none;*/
 }
 .layer_input{
 	margin-bottom: 10px;
@@ -326,9 +326,13 @@ button:hover{
 	color:black;
 	margin-bottom: 10px;
 }
-.mirrored{
-	background-color: rgb(28,129,212);
-	color:white;
+.top_layer {
+	border: 3px solid rgb(242,49,28);
+	color:rgb(242,49,28);
+}
+.bottom_layer{
+	border: 3px solid rgb(28,129,212);
+	color:rgb(28,129,212);
 }
 .mirrored_line{
 	border-color: rgba(30,225,125,0.4);
@@ -342,7 +346,7 @@ button:hover{
 }
 
 #erase_button:hover{
-	background-color: rgb(225,30,30);
+	background-color: rgb(242,49,28);
 	color: white;
 }
 
