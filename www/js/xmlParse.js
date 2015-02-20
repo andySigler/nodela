@@ -697,7 +697,8 @@ function parseXML(theText){
 //////////////////////////////////////////
 
 function loadFacingPlan() {
-	displayBoard(facingPlan_design);
+	currentBoard = facingPlan_design;
+	displayBoard();
 }
 
 //////////////////////////////////////////
@@ -1724,7 +1725,15 @@ var facingPlan_design =  {
   ],
   "info": {
     "width": 7214,
-    "height": 5182
+    "height": 5182,
+    "min" : {
+    	"x" : 0,
+    	"y" : 0
+    },
+    "max" : {
+    	"x" : 7214,
+    	"y" : 5182
+    }
   }
 };
 
