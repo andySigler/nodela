@@ -57,7 +57,7 @@ By selecting the current bit and cut depth, Nodela will decide the best settings
 Repository also includes a redesigned bed plate, in order to avoid using any tape. The `roland_bed.ai` file inside `./resources` was designed to be laser cut into flat delrin. With the delrin plate attached to the Roland, click `Load Facing Plan` in the interface, and run the job to face the delrin and drill holes. Threaded inserts are then hammered into the holes, and washers are used to hold down the PCB.
 
 ###Warning
-#####(or what nodela does not do)
+#####(or what Nodela does not do)
 
 ####Does not interpret arcs or circles
 
