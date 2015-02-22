@@ -36,11 +36,13 @@ var rolandPortName = YOUR_PORT_NAME_HERE;
 
 ####Run straight from your `.brd` Eagle File
 
-No need to export from your Eagle design file. Simply drag and drop your `.brd` file into the browser, and your design will be parsed. The interface is currently searching for only three things in your design file:
+No need to export from Eagle. Simply drag and drop your `.brd` file into the browser, and your design will be loaded. The interface is currently searching for only three things in your design file:
 
- - Wires (pre-designed toolpaths)
+ - Wires
  - Part Holes
  - Vias
+
+This means a board will be predominantly shaped by the `Wire` elements found in your design. See [this tutorial](google.com) on how to prepare your design for the Nodela.
 
 #####Jog the mills's head to select the cut's origin
  - Mill anywhere on your copper by jogging the head around with HTML5 buttons
