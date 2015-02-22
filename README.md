@@ -52,15 +52,15 @@ Mill anywhere on your copper plate by jogging the head around. The interface wil
 
 By selecting the current bit and cut depth, Nodela will decide the best settings to run at. This will prevent bits from breaking, and greatly decrease your cut time.
 
-###WARNING: What the current version does NOT do:
+###Warning (or what nodela does not do)
 
-####Does NOT interpret arcs or circles
+####Does not interpret arcs or circles
 
-The current assumes all `Wires` are straight lines. If you want a curve in your mill job, draw tons of little lines
+The current interface assumes all `Wires` in your `.brd` file are straight lines. If you want a curve in your mill job, draw tons of little lines.
 
-####Does NOT mill `Hole` and `Via` diameters
+####Does not interpret the diameter of `Holes` and `Vias`
 
-The current assumes all `Wires` are straight lines. If you want a curve in your mill job, draw tons of little lines
+All `Holes` and `Vias` are milled as if they are a single point. This means the bit will plunge straight down, and the resulting hole will be the diameter of the bit you use. For `Holes`, I like to use a 0.041 inch drill bit, and for `Vias` a 0.0276 inch drill bit (just enough to fit a 24 guage wire through).
 
 ###Included in this repo
 
