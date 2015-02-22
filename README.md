@@ -52,6 +52,10 @@ Mill anywhere on your copper plate by jogging the head around. The interface wil
 
 By selecting the current bit and cut depth, Nodela will decide the best settings to run at. This will prevent bits from breaking, and greatly decrease your cut time.
 
+####New Bed Design
+
+Repository also includes a redesigned bed plate, in order to avoid using any tape. The `roland_bed.ai` file inside `./resources` was designed to be laser cut into flat delrin. With the delrin plate attached to the Roland, click `Load Facing Plan' in the interface, and run the job to face the delrin and drill holes. Threaded inserts are then hammered into the holes, and washers are used to hold down the PCB.
+
 ###Warning
 #####(or what nodela does not do)
 
@@ -62,7 +66,3 @@ The current interface assumes all `Wires` in your `.brd` file are straight lines
 ####Does not interpret the diameter of `Holes` and `Vias`
 
 All `Holes` and `Vias` are milled as if they are a single point. This means the bit will plunge straight down, and the resulting hole will be the diameter of the bit you use. For `Holes`, I like to use a 0.041 inch drill bit, and for `Vias` a 0.0276 inch drill bit (just enough to fit a 24 guage wire through).
-
-###Included in this repo
-
-Repository also includes a redesigned bed plate, in order to avoid using any tape. The `roland_bed.ai` file inside `./resources` was designed to be laser cut into flat delrin. Threaded inserts are then hammered in, and washers are used to hold down the PCB.
