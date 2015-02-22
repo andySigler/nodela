@@ -35,6 +35,9 @@ var rolandPortName = YOUR_PORT_NAME_HERE;
 ###Features
 
 ####Drag and Drop `.brd` Eagle File Into Interface
+
+No need to export from your Eagle design file. Simple drag and drop your `.brd` file into the browser, and your design will be parsed. The interface is currently searching for only three things in your design file:
+
  - Wires (pre-designed toolpaths)
  - Part Holes
  - Vias
