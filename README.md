@@ -42,20 +42,19 @@ No need to export from Eagle. Simply drag and drop your `.brd` file into the bro
  - Part Holes
  - Vias
 
-This means a board will be predominantly shaped by the `Wire` elements found in your design. See [this tutorial](https://vimeo.com/119003450) on how to prepare your design for the Nodela.
+This means a board will be predominantly shaped by the `Wire` elements found in your design. See [THIS TUTORIAL](https://vimeo.com/119003450) on how to prepare your design for the Nodela. For the lazy check out [this ULP](http://mlab.taik.fi/paja/?p=1874), but your final board will be of lower quality.
 
-#####Jog the mills's head to select the cut's origin
- - Mill anywhere on your copper by jogging the head around with HTML5 buttons
+####Jog the bit to select origin
 
-###What nodela does NOT do
+Mill anywhere on your copper plate by jogging the head around. The interface will also mirror your design for when milling the bottom of your PCB.
 
-#####Does NOT mill Routes
- - Toolpath lines for making Routes must be designed in eagle using the Wire command (these are simple lines)
- - I prefer drawing these by hand, but for the lazy check out this great ULP: [fablab-mill-n-drill.ulp](http://mlab.taik.fi/paja/?p=1874)
+####Speed and plunge depth 
 
-#####Does NOT interpret arcs or circles
- - The current version parses Wires in your .brd file, and assumes they are all straight lines
- - If you want a curve in your mill job, draw tons of little lines, or use the ULP linked to above (which just draws tons of little lines...)
+Mill anywhere on your copper plate by jogging the head around. The interface will also mirror your design for when milling the bottom of your PCB.
+
+####WARNING: Current version does NOT interpret arcs or circles
+
+The current assumes all `Wires` are straight lines. If you want a curve in your mill job, draw tons of little lines
 
 ###Included in this repo
 
