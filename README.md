@@ -42,7 +42,7 @@ No need to export from Eagle. Simply drag and drop your `.brd` file into the bro
  - Part Holes
  - Vias
 
-This means a board will be predominantly shaped by the `Wire` elements found in your design. See [this tutorial](google.com) on how to prepare your design for the Nodela.
+This means a board will be predominantly shaped by the `Wire` elements found in your design. See [this tutorial](https://vimeo.com/119003450) on how to prepare your design for the Nodela.
 
 #####Jog the mills's head to select the cut's origin
  - Mill anywhere on your copper by jogging the head around with HTML5 buttons
