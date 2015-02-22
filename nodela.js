@@ -257,20 +257,24 @@ var handlers = {
 
 			var cutBackwards = false;
 
+			var stepDepth = 0;
+
 			// then loop through the number of iteration we will take
 			// if we're only doing one pass, iterations will equal 0
 			for(var i=1;i<=iterations;i++){
 
 				// each iteration will go down a step in the plunge depth
-				var stepDepth = Math.floor(plungeDepth * i);
+				stepDepth = Math.floor(plungeDepth * i);
 
 				// create and save the new line at this depth
 				job_text += makeIteration(stepDepth, cuts, cutBackwards);
 				cutBackwards = !cutBackwards;
 			}
 
-			// now do the one final depth
-			job_text += makeIteration(depth, cuts, cutBackwards);
+			// now do the one final depth cut, if we need to
+			if(stepDepth<depth) {
+				job_text += makeIteration(depth, cuts, cutBackwards);
+			}
 		}
 
 		// stop the spindle, and return to the origin
