@@ -52,7 +52,8 @@ Mill anywhere on your copper plate by jogging the head around. The interface wil
 
 By selecting the current bit and cut depth, Nodela will decide the best settings to run at. This will prevent bits from breaking, and greatly decrease your cut time.
 
-###Warning (or what nodela does not do)
+###Warning
+#####(or what nodela does not do)
 
 ####Does not interpret arcs or circles
 
