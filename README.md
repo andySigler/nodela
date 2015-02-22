@@ -26,7 +26,7 @@ node nodela.js
 ```
 The script will attempt to open `localhost` in your default browser, and the interface will prompt you to drag your `.brd` Eagle file onto the screen.
 
-When installing the Roland driver, the machine will have been assigned a port name like `com3`. To change this, open `nodela.js` in an editor and edit the following line to match your setup:
+When installing the Roland driver, the machine will have been assigned a port name. Mine is called `com3`. To work with your configuration, open `nodela.js` in an editor and edit the following line:
 
 ```
 var rolandPortName = YOUR_PORT_NAME_HERE;
