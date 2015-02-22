@@ -16,6 +16,8 @@ console.log('');
 ////////////////////////////////////////////
 ////////////////////////////////////////////
 
+var rolandPortName = 'com3';
+
 var sys = require('sys')
 var childProcess = require('child_process');
 
@@ -386,7 +388,7 @@ function sendToRoland(fileText,onSuccess,onError){
 		}
 		else{
 
-			var commandLine = 'type '+fileName+' > com3';
+			var commandLine = 'type '+fileName+' > '+rolandPortName;
 			if(_test){
 				if(_windows) commandLine = 'type '+fileName; // view it before erasing
 				else commandLine = 'cat '+fileName;
