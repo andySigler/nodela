@@ -32,12 +32,7 @@ When installing the Roland driver, the machine will have been assigned a port na
 var rolandPortName = YOUR_PORT_NAME_HERE;
 ```
 
-
-
-###Sofware Features
-
-#####Node.js script
- - Creates final file and writes to MDX-15/20 drivers
+###Features
 
 #####Drag .brd Eagle file into interface to parse the gerber
  - Recognizes Wires (pre-designed toolpaths)
