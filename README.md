@@ -35,9 +35,9 @@ var rolandPortName = YOUR_PORT_NAME_HERE;
 ###Features
 
 ####Drag and Drop `.brd` Eagle File Into Interface
- - Recognizes Wires (pre-designed toolpaths)
- - Recognizes Part Holes
- - Recognizes Vias
+ - Wires (pre-designed toolpaths)
+ - Part Holes
+ - Vias
 
 #####Jog the mills's head to select the cut's origin
  - Mill anywhere on your copper by jogging the head around with HTML5 buttons
