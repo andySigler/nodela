@@ -3,6 +3,10 @@
 
 nodela was developed for PCB fabrication using the MDX-15/20 milling machines. It is a browser-based interface for quickly sending PCB designs and toolpaths from an Eagle `.brd` file to the milling machine.
 
+[Video tutorial on preparing your Eagle design for nodela](https://vimeo.com/119003450)
+
+[Video tutorial on setting up and running a job on the Modela](https://vimeo.com/119725323)
+
 ###Install
 
 This version must be run on a Window's PC, with the Roland MDX-15/20 drivers already installed. Using the Modela without any drivers requires further research and probably some USB sniffing...
