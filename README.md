@@ -48,11 +48,17 @@ This means a board will be predominantly shaped by the `Wire` elements found in 
 
 Mill anywhere on your copper plate by jogging the head around. The interface will also mirror your design for when milling the bottom of your PCB.
 
-####Speed and plunge depth 
+####Automatic speed and plunge settings
 
-Mill anywhere on your copper plate by jogging the head around. The interface will also mirror your design for when milling the bottom of your PCB.
+By selecting the current bit and cut depth, Nodela will decide the best settings to run at. This will prevent bits from breaking, and greatly decrease your cut time.
 
-####WARNING: Current version does NOT interpret arcs or circles
+###WARNING: What the current version does NOT do:
+
+####Does NOT interpret arcs or circles
+
+The current assumes all `Wires` are straight lines. If you want a curve in your mill job, draw tons of little lines
+
+####Does NOT mill `Hole` and `Via` diameters
 
 The current assumes all `Wires` are straight lines. If you want a curve in your mill job, draw tons of little lines
 
