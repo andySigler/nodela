@@ -1,7 +1,7 @@
 #nodela
 ##Browser Interface for the Roland MDX-15/20
 
-Nodela was developed for PCB fabrication using the MDX-15/20 milling machines. It is a browser-based interface for quickly sending PCB designs and toolpaths from an Eagle `.brd` file to the milling machine.
+nodela was developed for PCB fabrication using the MDX-15/20 milling machines. It is a browser-based interface for quickly sending PCB designs and toolpaths from an Eagle `.brd` file to the milling machine.
 
 ###Install
 
@@ -42,7 +42,7 @@ No need to export from Eagle. Simply drag and drop your `.brd` file into the bro
  - Part Holes
  - Vias
 
-This means a board will be predominantly shaped by the `Wire` elements found in your design. See [THIS TUTORIAL](https://vimeo.com/119003450) on how to prepare your design for the Nodela. For the lazy check out [this ULP](http://mlab.taik.fi/paja/?p=1874), but your final board will be of lower quality.
+This means a board will be predominantly shaped by the `Wire` elements found in your design. See [THIS TUTORIAL](https://vimeo.com/119003450) on how to prepare your design for the nodela. For the lazy check out [this ULP](http://mlab.taik.fi/paja/?p=1874), but your final board will be of lower quality.
 
 ####Jog the bit to select origin
 
@@ -50,14 +50,14 @@ Mill anywhere on your copper plate by jogging the head around. The interface wil
 
 ####Automatic speed and plunge settings
 
-By selecting the current bit and cut depth, Nodela will decide the best settings to run at. This will prevent bits from breaking, and greatly decrease your cut time.
+By selecting the current bit and cut depth, nodela will decide the best settings to run at. This will prevent bits from breaking, and greatly decrease your cut time.
 
 ####New Bed Design
 
 Repository also includes a redesigned bed plate, in order to avoid using any tape. The `roland_bed.ai` file inside `./resources` was designed to be laser cut into flat delrin. With the delrin plate attached to the Roland, click `Load Facing Plan` in the interface, and run the job to face the delrin and drill holes. Threaded inserts are then hammered into the holes, and washers are used to hold down the PCB.
 
 ###Warning
-#####(or what Nodela does not do)
+#####(or what nodela does not do)
 
 ####Does not interpret arcs or circles
 
