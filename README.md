@@ -3,6 +3,29 @@
 
 Nodela was developed for PCB fabrication using the MDX-15/20 milling machines. It is a browser-based interface for quickly sending PCB designs and toolpaths from an Eagle `.brd` file to the milling machine.
 
+###Install
+
+This version must be run on a Window's PC, with the Roland MDX-15/20 drivers already installed. Using the Modela without any drivers requires further research and probably some USB sniffing...
+
+Node.js and npm must already be installed on the Window's PC.
+
+Download  .zip, or using Git:
+```
+git clone https://github.com/andySigler/nodela
+```
+Install dependencies with npm:
+```
+cd nodela
+npm install
+```
+###Use
+
+To run with node:
+```
+node nodela.js
+```
+The script will attempt to open `localhost` in your default browser, and the interface will prompt you to drag your `.brd` Eagle file onto the screen.
+
 ###Sofware Features
 
 #####Node.js script
@@ -25,29 +48,6 @@ Nodela was developed for PCB fabrication using the MDX-15/20 milling machines. I
 #####Does NOT interpret arcs or circles
  - The current version parses Wires in your .brd file, and assumes they are all straight lines
  - If you want a curve in your mill job, draw tons of little lines, or use the ULP linked to above (which just draws tons of little lines...)
-
-###Install
-
-This version must be run on a Window's PC, with the MDX-15/20 drivers already installed. Using the Modela without any drivers requires further research and probably some USB sniffing. Please contact me if you have any helpful information on this (because doing this with embedded linux would be badass...)
-
-Node.js and npm must already be installed on the Window's PC.
-
-Download  .zip, or using Git:
-```
-git clone https://github.com/andySigler/nodela
-```
-Install dependencies with npm:
-```
-cd nodela
-npm install
-```
-###Use
-
-To run with node:
-```
-node nodela.js
-```
-The script will attempt to open `localhost` in your default browser, and the interface will prompt you to drag your `.brd` Eagle file onto the screen.
 
 ###Included in this repo
 
