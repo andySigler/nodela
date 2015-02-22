@@ -7,7 +7,7 @@ nodela was developed for PCB fabrication using the MDX-15/20 milling machines. I
 
 [Video tutorial on setting up and running a job on the Modela](https://vimeo.com/119725323)
 
-###Install
+##Install
 
 This version must be run on a Window's PC, with the Roland MDX-15/20 drivers already installed. Using the Modela without any drivers requires further research and probably some USB sniffing...
 
@@ -22,7 +22,7 @@ Install dependencies with npm:
 cd nodela
 npm install
 ```
-###Use
+##Use
 
 To run with node:
 ```
@@ -36,7 +36,7 @@ When installing the Roland driver, the machine will have been assigned a port na
 var rolandPortName = YOUR_PORT_NAME_HERE;
 ```
 
-###Features
+##Features
 
 ####Run straight from your `.brd` Eagle File
 
@@ -58,9 +58,11 @@ By selecting the current bit and cut depth, nodela will decide the best settings
 
 ####New Bed Design
 
-Repository also includes a redesigned bed plate, in order to avoid using any tape. The `roland_bed.ai` file inside `./resources` was designed to be laser cut into flat delrin. With the delrin plate attached to the Roland, click `Load Facing Plan` in the interface, and run the job to face the delrin and drill holes. Threaded inserts are then hammered into the holes, and washers are used to hold down the PCB.
+Repository also includes a redesigned bed plate, in order to avoid using any tape. The `roland_bed.ai` file inside `./resources` was designed to be laser cut into flat delrin.
 
-###Warning
+With the delrin plate attached to the Roland, click `Load Facing Plan` in the interface, and run the job to face the delrin and drill holes. Threaded inserts are then hammered into the holes, and washers are used to hold down the PCB.
+
+##Warning
 #####(or what nodela does not do)
 
 ####Does not interpret arcs or circles
