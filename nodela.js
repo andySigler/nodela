@@ -228,7 +228,7 @@ var handlers = {
 		var diameter = Math.floor(Number(data.diameter));
 		if(!diameter || diameter<minDiameter) diameter = minDiameter;
 
-		var plungeDepth = Math.floor(diameter/5);
+		var plungeDepth = Math.round(diameter/4);
 
 		// decide how many times we have go around cutting
 		var iterations = Math.floor(depth/plungeDepth);
