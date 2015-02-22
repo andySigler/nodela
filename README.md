@@ -34,7 +34,7 @@ var rolandPortName = YOUR_PORT_NAME_HERE;
 
 ###Features
 
-#####Drag .brd Eagle file into interface to parse the gerber
+####Drag and Drop `.brd` Eagle File Into Interface
  - Recognizes Wires (pre-designed toolpaths)
  - Recognizes Part Holes
  - Recognizes Vias
