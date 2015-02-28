@@ -331,7 +331,7 @@ function mirror(){
 			var c = cuts[n];
 			for(var b=0;b<c.length;b++){
 				var coord = c[b];
-				coord.x = (coord.x*-1)+can.parent.width;
+				coord.x = ((coord.x*-1) + can.parent.width) + (currentBoard.info.min.x * 2);
 			}
 		}
 
