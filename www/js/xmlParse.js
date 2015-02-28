@@ -137,7 +137,8 @@ function parseLayers(brd){
 
 	for(var n in brd.wires){
 		var layerWires = brd.wires[n];
-		var c = makeCanvas('Layer '+n);
+		var thisLayerName = currentBoard.info.layers[n];
+		var c = makeCanvas(thisLayerName);
 		c.canvas.parent = c;
 
 		var currentLine = [];
@@ -491,6 +492,8 @@ function parseXML(theText){
 			var tempWire = allWires[i];
 			var tempLayer = Number(tempWire.getAttribute('layer'));
 
+
+
 			if(!myWires[tempLayer]){
 				myWires[tempLayer] = [];
 			}
@@ -650,6 +653,15 @@ function parseXML(theText){
 		var theGrid = xmlDoc.getElementsByTagName('grid')[0]; // holds the unit used
 		setUnit(theGrid.getAttribute('unit'));
 
+		var theseLayers = xmlDoc.getElementsByTagName('layers')[0].getElementsByTagName('layer');
+		var foundLayers = {};
+
+		for(var l=0;l<theseLayers.length;l++) {
+			var layerNumber = theseLayers[l].getAttribute('number');
+			var layerName = theseLayers[l].getAttribute('name');
+			foundLayers[layerNumber] = layerName;
+		}
+
 		var theBoard = xmlDoc.getElementsByTagName('board')[0]; // has everything we'll draw
 
 		if(theBoard){
@@ -681,7 +693,8 @@ function parseXML(theText){
 				'width' : max.x-min.x,
 				'height' : max.y-min.y,
 				'min' : min,
-				'max' : max
+				'max' : max,
+				'layers' : foundLayers
 			};
 
 			return myBoard;
