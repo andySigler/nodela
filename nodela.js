@@ -158,17 +158,39 @@ var handlers = {
 
 	'erase' : function(){
 		if(_test){
+
+			var delayTime = 1000;
+
 			setTimeout(function(){
 				if(theSocket){
-
-					var msg = {
-						'type' : 'erase',
-						'data' : 'success'
-					};
-
+					var msg = {'type':'erase','data':'1/4'};
 					theSocket.send(JSON.stringify(msg));
 				}
-			},2000);
+				setTimeout(function(){
+					if(theSocket){
+						var msg = {'type':'erase','data':'2/4'};
+						theSocket.send(JSON.stringify(msg));
+					}
+					setTimeout(function(){
+						if(theSocket){
+							var msg = {'type':'erase','data':'3/4'};
+							theSocket.send(JSON.stringify(msg));
+						}
+						setTimeout(function(){
+							if(theSocket){
+								var msg = {'type':'erase','data':'4/4'};
+								theSocket.send(JSON.stringify(msg));
+							}
+							setTimeout(function(){
+								if(theSocket){
+									var msg = {'type':'erase','data':'success'};
+									theSocket.send(JSON.stringify(msg));
+								}
+							},delayTime);
+						},delayTime);
+					},delayTime);
+				},delayTime);
+			},delayTime);
 		}
 		else{
 			eraseRoland();

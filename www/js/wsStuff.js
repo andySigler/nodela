@@ -74,7 +74,23 @@ function Roland_sendJog(axis,amount){
 ////////////////////////////////////////
 ////////////////////////////////////////
 
-function Roland_sendCuts(lines){
+function Roland_sendCuts(globalLines){
+
+	var lines = JSON.parse(JSON.stringify(globalLines));
+
+
+	// if we mirrored the board, undo the X changes I made before in mirror() function
+	// these changes were made so to help the visualization
+	// this feels sloppy, needs to change, but works for now...
+	if(isMirrored) {
+		for(var i=0;i<lines.length;i++) {
+			for(var n=0;n<lines[i].length;n++) {
+				lines[i][n].x -= ((currentBoard.info.min.x * 2) + currentBoard.info.width);
+			}
+		}
+	}
+
+
 
 	var bitDiameter = Number(document.getElementById('bitDiameter').value);
 	if(bitDiameter!==NaN && bitDiameter>=0){
@@ -83,8 +99,6 @@ function Roland_sendCuts(lines){
 
 			bitDiameter = Math.round(bitDiameter*1016);
 			cutDepth = Math.round(cutDepth*1016);
-
-			console.log(lines);
 
 			var msg = {
 				'type' : 'mill',
@@ -116,19 +130,27 @@ function Roland_sendCuts(lines){
 ////////////////////////////////////////
 
 function Roland_eraseMemory(){
-	var msg = {
-		'type' : 'erase',
-		'data' : {}
-	}
 
-	if(ws && ws.isOpen){
-		ws.send(JSON.stringify(msg));
+	alert("Please Press both up and Down arrows");
 
-		document.getElementById('eraseBox').style.display = 'block';
-		document.getElementById('eraseBox').style.backgroundColor = 'rgb(225,30,30)';
-		document.getElementById('eraseStatus').style.textAlign = 'center';
-		document.getElementById('eraseStatus').innerHTML = 'Waiting for response...';
-		document.getElementById('printerButton').style.display = 'none';
+	var isBlinking = confirm("Has the light been blinking for more than 5 seconds?");
+
+	if(isBlinking) {
+
+		var msg = {
+			'type' : 'erase',
+			'data' : {}
+		}
+
+		if(ws && ws.isOpen){
+			ws.send(JSON.stringify(msg));
+
+			document.getElementById('eraseBox').style.display = 'block';
+			document.getElementById('eraseBox').style.backgroundColor = 'rgb(225,30,30)';
+			document.getElementById('eraseStatus').style.textAlign = 'center';
+			document.getElementById('eraseStatus').innerHTML = 'Waiting for response...';
+			document.getElementById('printerButton').style.display = 'none';
+		}
 	}
 }
 

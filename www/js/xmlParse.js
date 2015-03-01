@@ -353,6 +353,8 @@ function mirror(){
 		layer.draw(theWidth,theHeight,padding,drawColor,2,vizScale);
 
 	}
+
+	updateOriginArrow();
 }
 
 //////////////////////////////////////////
@@ -415,17 +417,21 @@ function updateOriginArrow(){
 		var boardOffsetX = Math.floor(currentBoard.info.min.x * vizScale);
 		var boardOffsetY = Math.floor(currentBoard.info.min.y * vizScale);
 
-		var y = obj.offsetHeight+boardOffsetY;
-		var x = (originArrow.parentNode.offsetWidth/2)+(obj.offsetWidth/2)+boardOffsetX;
+		var arrowY = obj.offsetHeight+boardOffsetY;
+		var arrowX = (originArrow.parentNode.offsetWidth/2)+(obj.offsetWidth/2)+boardOffsetX;
 
-		originArrow.style.top = y+'px';
-		originArrow.style.right = x+'px';
+		if(isMirrored) {
+			arrowX = originArrow.parentNode.offsetWidth - arrowX;
+		}
 
-		originCircle.style.top = y+'px';
-		originCircle.style.right = x+'px';
+		originArrow.style.top = arrowY+'px';
+		originArrow.style.right = arrowX+'px';
 
-		origin_warning.style.top = y+'px';
-		origin_warning.style.right = x+'px';
+		originCircle.style.top = arrowY+'px';
+		originCircle.style.right = arrowX+'px';
+
+		origin_warning.style.top = arrowY+'px';
+		origin_warning.style.right = arrowX+'px';
 	}
 }
 
@@ -1746,6 +1752,10 @@ var facingPlan_design =  {
     "max" : {
     	"x" : 7214,
     	"y" : 5182
+    },
+    'layers' : {
+    	20 : '4 x 6 Marker',
+    	46 : 'Face (1/8" bit)'
     }
   }
 };
