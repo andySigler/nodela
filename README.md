@@ -61,14 +61,3 @@ By selecting the current bit and cut depth, nodela will decide the best settings
 Repository also includes a redesigned bed plate, in order to avoid using any tape. The `roland_bed.ai` file inside `./resources` was designed to be laser cut into flat delrin.
 
 With the newly cut delrin plate attached to the Roland, attach a 1/8 inch end mill. Click `Load Facing Plan` in the interface, and run the job to face the delrin and drill holes. Remove the plate when finished, and hammer 4-40 threaded inserts into the holes.
-
-##Warning
-#####(or what nodela does not do)
-
-####Does not interpret arcs or circles
-
-The current interface assumes all `Wires` in your `.brd` file are straight lines. If you want a curve in your mill job, draw tons of little lines.
-
-####Does not interpret the diameter of `Holes` and `Vias`
-
-All `Holes` and `Vias` are milled as if they are a single point. This means the bit will plunge straight down, and the resulting hole will be the diameter of the bit you use. For `Holes`, I like to use a 0.041 inch drill bit, and for `Vias` a 0.0276 inch drill bit (just enough to fit a 24 guage wire through).
