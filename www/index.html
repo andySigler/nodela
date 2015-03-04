@@ -51,9 +51,24 @@
 					<option value="0.25">1/4 inch Bit</option>
 					<option value="2.0">Drill Bit</option>
 				</select>
-				<input class="layer_input" id="cutDepth" type="text"placeholder="How Deep? (inch)" />
+				<input class="layer_input" id="cutDepth" type="text" />
 
-				<div class="howDeep_instruction">leave "How Deep?" <strong class="">empty</strong><br />when milling routes</div>
+				<script type="text/javascript">
+
+					window.addEventListener('load',function(e){
+						var minCutDepth = 0.008;
+						var depthInput = document.getElementById('cutDepth');
+						depthInput.value = minCutDepth;
+						depthInput.addEventListener('input',function(e){
+							var enteredValue = Number(depthInput.value);
+							if(isNaN(enteredValue)) {
+								depthInput.value = minCutDepth;
+							}
+						});
+					});
+				</script>
+
+				<div class="howDeep_instruction">How many <strong>inches</strong> to cut down<br />Default value will remove just copper</div>
 
 				<div class="divider"></div>
 

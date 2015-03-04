@@ -239,16 +239,16 @@ var handlers = {
 
 	'mill' : function(data){
 
-		var minDepth = 8; // minimum depth we will mill
+		var minDepth = 1; // minimum depth we will mill
 		var minDiameter = 10; // 1/100 inch bit
 		// get the lines
 		var lines = data.lines;
 
 		var depth = Math.abs(Math.floor(Number(data.depth)));
-		if(!depth || depth<minDepth) depth = minDepth;
+		if(isNaN(depth) || depth<minDepth) depth = minDepth;
 
 		var diameter = Math.floor(Number(data.diameter));
-		if(!diameter || diameter<minDiameter) diameter = minDiameter;
+		if(isNaN(diameter) || diameter<minDiameter) diameter = minDiameter;
 
 		var plungeDepth = Math.round(diameter/4);
 

@@ -337,6 +337,9 @@ button:hover{
 .mirrored_line{
 	border-color: rgba(30,225,125,0.4);
 }
+#mirror_button {
+	margin-top: 15px;
+}
 #print_button{
 	color: black;
 }
