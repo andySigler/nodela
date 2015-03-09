@@ -165,10 +165,12 @@ function parseLayers(brd){
 				});
 			}
 
-			currentLine.push({
-				'x':wire.x2,
-				'y':wire.y2
-			});
+			if(wire.x2!==wire.x1 || wire.y1!==wire.y2){
+				currentLine.push({
+					'x':wire.x2,
+					'y':wire.y2
+				});
+			}
 
 			prev.x = wire.x2;
 			prev.y = wire.y2;
