@@ -61,7 +61,7 @@
 						depthInput.value = minCutDepth;
 						depthInput.addEventListener('input',function(e){
 							var enteredValue = Number(depthInput.value);
-							if(!enteredValue) {
+							if(!enteredValue || enteredValue<0) {
 								depthInput.value = minCutDepth;
 							}
 						});
