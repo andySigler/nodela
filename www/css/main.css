@@ -295,6 +295,7 @@ button:focus{
 	width:49%;
 	position:relative;
 	display:inline-block;
+	vertical-align: top;
 	height:30px;
 }
 button{
@@ -325,6 +326,13 @@ button:hover{
 	width:99%;
 	color:black;
 	margin-bottom: 10px;
+}
+.mediumbutton{
+	width:48.1%;
+	position:relative;
+	display:inline-block;
+	vertical-align: top;
+	height:30px;
 }
 .top_layer {
 	border: 3px solid rgb(242,49,28);
