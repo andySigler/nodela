@@ -43,13 +43,13 @@
 				<div class="divider"></div>
 
 				<select class="layer_input" id="bitDiameter"/>
-					<option value="0.01">1/100 inch Bit</option>
-					<option value="0.015625">1/64 inch Bit</option>
-					<option value="0.03125">1/32 inch Bit</option>
-					<option value="0.0625">1/16 inch Bit</option>
-					<option value="0.125">1/8 inch Bit</option>
-					<option value="0.25">1/4 inch Bit</option>
-					<option value="2.0">Drill Bit</option>
+					<option value="0.01">1/100 End Mill</option>
+					<option value="0.015625">1/64 End Mill</option>
+					<option value="0.03125">1/32 End Mill</option>
+					<option value="0.0625">1/16 End Mill</option>
+					<option value="0.125">1/8 End Mill</option>
+					<option value="0.25">1/4 End Mill</option>
+					<option value="2.0">Drill Bit (any size)</option>
 				</select>
 				<input class="layer_input" id="cutDepth" type="text" />
 
@@ -61,7 +61,7 @@
 						depthInput.value = minCutDepth;
 						depthInput.addEventListener('input',function(e){
 							var enteredValue = Number(depthInput.value);
-							if(!enteredValue || enteredValue<0) {
+							if(isNaN(enteredValue) || enteredValue<0) {
 								depthInput.value = minCutDepth;
 							}
 						});
