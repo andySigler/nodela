@@ -10,12 +10,25 @@
 		<div class="container" id="container">
 			<div class="buttons_container">
 
-				<div style="width:100%;text-align:center;color:rgb(205,205,205);margin-top:0px;">github.com/andysigler/nodela</div>
+				<div class="divider"></div>
 
 				<button onclick="mirror()" id="mirror_button" class="bigbutton top_layer" style="display:none">TOP</button>
 
 				<div id="layerButtons_div" class="layerButtons_div">
 				</div>
+
+				<select class="layer_input" id="bitDiameter"/>
+					<option value="0.01">1/100 End Mill</option>
+					<option value="0.015625">1/64 End Mill</option>
+					<option value="0.03125">1/32 End Mill</option>
+					<option value="0.0625">1/16 End Mill</option>
+					<option value="0.125">1/8 End Mill</option>
+					<option value="0.25">1/4 End Mill</option>
+					<option value="2.0">Drill Bit (any size)</option>
+				</select>
+				<input class="layer_input" id="cutDepth" type="text" />
+
+				<div class="howDeep_instruction">How many <strong>inches</strong> to cut down<br />(~ 0.008 will remove just copper)</div>
 
 				<div class="divider"></div>
 
@@ -39,19 +52,6 @@
 					</button>
 				</div>
 
-				<div class="divider"></div>
-
-				<select class="layer_input" id="bitDiameter"/>
-					<option value="0.01">1/100 End Mill</option>
-					<option value="0.015625">1/64 End Mill</option>
-					<option value="0.03125">1/32 End Mill</option>
-					<option value="0.0625">1/16 End Mill</option>
-					<option value="0.125">1/8 End Mill</option>
-					<option value="0.25">1/4 End Mill</option>
-					<option value="2.0">Drill Bit (any size)</option>
-				</select>
-				<input class="layer_input" id="cutDepth" type="text" />
-
 				<script type="text/javascript">
 
 					window.addEventListener('load',function(e){
@@ -67,13 +67,13 @@
 					});
 				</script>
 
-				<div class="howDeep_instruction">How many <strong>inches</strong> to cut down<br />(~ 0.008 will remove just copper)</div>
-
 				<div class="divider"></div>
 
-				<button onclick="printLayer()" id="print_button" class="bigbutton">Send Layer to Roland</button>
+				<button onclick="printLayer()" id="print_button" class="bigbutton">Run Job</button>
 				<button onclick="Roland_eraseMemory()" id="erase_button" class="mediumbutton">Delete Job</button>
 				<button onclick="loadFacingPlan()" id="facing_button" class="mediumbutton">Load Facing Plan</button>
+
+				<div style="width:100%;text-align:center;color:black;margin-top:20px;font-size:12px;">github.com/andysigler/nodela</div>
 
 			</div>
 
