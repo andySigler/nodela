@@ -250,7 +250,7 @@ var handlers = {
 		var diameter = Math.floor(Number(data.diameter));
 		if(isNaN(diameter) || diameter<minDiameter) diameter = minDiameter;
 
-		var plungeDepth = Math.round(diameter/4);
+		var plungeDepth = Math.round(diameter/5);
 
 		// decide how many times we have go around cutting
 		var iterations = Math.floor(depth/plungeDepth);
