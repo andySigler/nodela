@@ -25,6 +25,10 @@ function parseLayers(brd){
 		////////////
 
 		function select(){
+
+			// as a safety measure, set the cut-depth to the default value
+			document.getElementById('cutDepth').value = minCutDepth;
+
 			var cans = parent.children;
 			for(var i=0;i<cans.length;i++){
 				if(cans[i]===canvas){
