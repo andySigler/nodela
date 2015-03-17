@@ -370,8 +370,9 @@ function mirror(){
 function printLayer(){
 	var parent = document.getElementById('canvas_container');
 	if(parent.visibleLayer){
+		var layerName = parent.visibleLayer.parent.button.innerHTML;
 		var cuts = parent.visibleLayer.parent.cuts;
-		Roland_sendCuts(cuts);
+		Roland_sendCuts(cuts,layerName);
 	}
 }
 

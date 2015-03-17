@@ -74,7 +74,7 @@ function Roland_sendJog(axis,amount){
 ////////////////////////////////////////
 ////////////////////////////////////////
 
-function Roland_sendCuts(globalLines){
+function Roland_sendCuts(globalLines, currentLayerName){
 
 	var lines = JSON.parse(JSON.stringify(globalLines));
 
@@ -90,38 +90,52 @@ function Roland_sendCuts(globalLines){
 		}
 	}
 
+	var bitMenu = document.getElementById('bitDiameter');
+	var bitName = bitMenu.options[bitMenu.selectedIndex].innerHTML;
+
+	var cutDepth = Number(document.getElementById('cutDepth').value);
+
+	var tempString = '';
+	tempString += '\n\nDouble check your settings:\n\n';
+	tempString += 'Layer:\t'+currentLayerName+'\n';
+	tempString += 'Bit:\t\t'+bitName+'\n';
+	tempString += 'Depth:\t'+cutDepth+'\n\n';
+	tempString += 'Click OK to run';
 
 
-	var bitDiameter = Number(document.getElementById('bitDiameter').value);
-	if(bitDiameter!==NaN && bitDiameter>=0){
-		var cutDepth = Number(document.getElementById('cutDepth').value);
-		if(cutDepth!==NaN && cutDepth>=0 && cutDepth<0.33){
+	var readyToCut = confirm(tempString);
 
-			bitDiameter = Math.round(bitDiameter*1016);
-			cutDepth = Math.round(cutDepth*1016);
+	if(readyToCut) {
+		var bitDiameter = Number(bitMenu.value);
+		if(bitDiameter!==NaN && bitDiameter>=0){
+			if(cutDepth!==NaN && cutDepth>=0 && cutDepth<0.33){
 
-			var msg = {
-				'type' : 'mill',
-				'data' : {
-					'diameter' : bitDiameter,
-					'depth' : cutDepth,
-					'lines' : lines
+				bitDiameter = Math.round(bitDiameter*1016);
+				cutDepth = Math.round(cutDepth*1016);
+
+				var msg = {
+					'type' : 'mill',
+					'data' : {
+						'diameter' : bitDiameter,
+						'depth' : cutDepth,
+						'lines' : lines
+					}
+				}
+
+				if(ws && ws.isOpen){
+					ws.send(JSON.stringify(msg));
+				}
+				else{
+					throwError('Browser is not connected to the server');
 				}
 			}
-
-			if(ws && ws.isOpen){
-				ws.send(JSON.stringify(msg));
-			}
 			else{
-				throwError('Browser is not connected to the server');
+				throwError('Bad value for the Cut Depth');
 			}
 		}
 		else{
-			throwError('Bad value for the Cut Depth');
+			throwError('Bad value for the Bit Diameter');
 		}
-	}
-	else{
-		throwError('Bad value for the Bit Diameter');
 	}
 }
 
