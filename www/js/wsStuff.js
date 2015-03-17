@@ -97,11 +97,9 @@ function Roland_sendCuts(globalLines, currentLayerName){
 
 	var tempString = '';
 	tempString += '\n\nDouble check your settings:\n\n';
-	tempString += 'Layer:\t'+currentLayerName+'\n';
-	tempString += 'Bit:\t\t'+bitName+'\n';
-	tempString += 'Depth:\t'+cutDepth+'\n\n';
-	tempString += 'Click OK to run';
-
+	tempString += 'Layer:\n         -> '+currentLayerName+'\n\n';
+	tempString += 'Bit:\n         -> '+bitName+'\n\n';
+	tempString += 'Depth:\n         -> '+cutDepth;
 
 	var readyToCut = confirm(tempString);
 
