@@ -126,7 +126,7 @@ canvas{
 #widthLabel{
 	position:absolute;
 	display:inline;
-	width:90%;
+	width:150px;
 	top:-20px;
 	left:10px;
 	text-align:left;
@@ -137,7 +137,7 @@ canvas{
 	text-align:left;
 	top:130px;
 	left:0%;
-	width:90%;
+	width:150px;
 	-webkit-transform-origin:0% 100%;
 	-moz-transform-origin:0% 100%;
 	transform-origin:0% 100%;

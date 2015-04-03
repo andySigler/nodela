@@ -543,7 +543,25 @@ function parseXML(theText){
 
 			saveMinMax(tempPart.x,tempPart.y);
 
-			if(typeof tempPart.rot==='string') tempPart.rot = Number(tempPart.rot.slice(1));
+			if(typeof tempPart.rot==='string') {
+
+				// find the first character that's a number
+				// and get rid of all previous characters
+				var newString = '';
+
+				for(var l=0;l<tempPart.rot.length;l++){
+
+					var thisLetter = tempPart.rot.charAt(l);
+
+					// if it could be a number, save the character
+					if(!isNaN(Number(thisLetter))) {
+						newString += thisLetter;
+					}
+				}
+
+				// then turn the new string into a number
+				tempPart.rot = Number(newString) || 0;
+			}
 
 			myParts[tempPart.name] = tempPart;
 		}
