@@ -367,6 +367,102 @@ function mirror(){
 //////////////////////////////////////////
 //////////////////////////////////////////
 
+function createPnP() {
+
+	var CSV_TEXT = [
+		'\r\n',
+		'%,Distance values are in millimeters (floats)\r\n',
+		'%,Lines beginning with % are comments\r\n',
+		'\r\n',
+		'\r\n',
+		'%,Assign the board\'s origin below (found with the PnP\'s laser)\r\n',
+		'%,Replace "origin_x" and "origin_y"\r\n',
+		'\r\n',
+		'65535,0,origin_x,origin_y,\r\n',
+		'\r\n',
+		'\r\n',
+		'%,Put the position of each panelled board below\r\n',
+		'%,Replace "panel_x" and "panel_y"\r\n',
+		'\r\n',
+		'%,Make a new line for each panel\r\n',
+		'%,Or just erase them if not panelling\r\n',
+		'%,Do not include the first board!!! (the one at origin)\r\n',
+		'\r\n',
+		'65535,3,panel_x,panel_y,\r\n',
+		'65535,3,panel_x,panel_y,\r\n',
+		'\r\n',
+		'\r\n',
+		'%,You must enter three values for each component in the list below\r\n',
+		'%,,1) _nozzle_\r\n',
+		'%,,2) _stack_\r\n',
+		'%,,3) _rotation_\r\n',
+		'\r\n',
+		'%Order (1-inf),Nozzle (1-2),Stack (1-13),X (mm),Y (mm),R (degrees),H (0),skip (0-1), Label,\r\n'
+	];
+
+	var partCount = 0;
+
+	// go through all parts, looking for SMDs
+	for(var partName in currentBoard.parts) {
+		var thisPart = currentBoard.parts[partName];
+		if(!thisPart.holes.length) {
+			// it's got no holes, so use it
+			partCount++;
+
+			var thisString = '';
+
+			// order
+			thisString += partCount;
+			thisString += ',';
+
+			// nozzle
+			thisString += '_nozzle_';
+			thisString += ',';
+
+			// stack
+			thisString += '_stack_';
+			thisString += ',';
+
+			// X
+			thisString += ((thisPart.x/1016) * 25.4).toFixed(2); // to mm
+			thisString += ',';
+
+			// Y
+			thisString += ((thisPart.y/1016) * 25.4).toFixed(2); // to mm
+			thisString += ',';
+
+			// rotation
+			thisString += '_rotation_';
+			thisString += ',';
+
+			// height
+			thisString += '0';
+			thisString += ',';
+
+			// skip
+			thisString += '0';
+			thisString += ',';
+
+			// label
+			thisString += thisPart.name+'('+thisPart.value+')';
+			thisString += ',';
+
+			thisString += '\r\n';
+
+			CSV_TEXT.push(thisString);
+		}
+	}
+
+	var blob = new Blob(CSV_TEXT, {type: "text/csv;charset=utf-8"});
+	var filename = currentBoard.name;
+
+	saveAs(blob, filename);
+}
+
+//////////////////////////////////////////
+//////////////////////////////////////////
+//////////////////////////////////////////
+
 function printLayer(){
 	var parent = document.getElementById('canvas_container');
 	if(parent.visibleLayer){
@@ -462,6 +558,8 @@ function loadFile(e){
 
 				currentBoard = parseXML(reader.result);
 
+				currentBoard.name = _F.name.split('.')[0];
+
 				displayBoard();
 			}
 
@@ -534,6 +632,7 @@ function parseXML(theText){
 			var element = allElements[i];
 			var tempPart = {
 				'name' : element.getAttribute('name'),
+				'value' : element.getAttribute('value'),
 				'library' : element.getAttribute('library'),
 				'package' : element.getAttribute('package'),
 				'rot' : element.getAttribute('rot') || 0,

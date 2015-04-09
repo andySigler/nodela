@@ -5,6 +5,8 @@
 		<link rel="stylesheet" href="./css/main.css">
 		<script type="text/javascript" src="./js/xmlParse.js"></script>
 		<script type="text/javascript" src="./js/wsStuff.js"></script>
+		<script type="text/javascript" src="./js/blob.js"></script>
+		<script type="text/javascript" src="./js/fileSaver.js"></script>
 	</head>
 	<body>
 		<div class="container" id="container">
@@ -71,7 +73,8 @@
 				<div class="divider"></div>
 
 				<button onclick="printLayer()" id="print_button" class="bigbutton">Run Job</button>
-				<button onclick="Roland_eraseMemory()" id="erase_button" class="mediumbutton">Delete Job</button>
+				<button onclick="Roland_eraseMemory()" id="erase_button" class="bigbutton">Delete Job</button>
+				<button onclick="createPnP()" id="pnp_button" class="mediumbutton">Create PnP .csv</button>
 				<button onclick="loadFacingPlan()" id="facing_button" class="mediumbutton">Load Facing Plan</button>
 
 				<div style="width:100%;text-align:center;color:black;margin-top:20px;font-size:12px;">github.com/andysigler/nodela</div>

@@ -367,6 +367,11 @@ button:hover{
 	color: white;
 }
 
+#pnp_button:hover {
+	background-color: rgb(129,129,212);
+	color: white;
+}
+
 .origin_warning{
 	display:none;
 	position:absolute;
