@@ -16,13 +16,14 @@ console.log('');
 ////////////////////////////////////////////
 ////////////////////////////////////////////
 
-var rolandPortName = 'com3';
+var rolandPortName = 'usbserial';
 
 var sys = require('sys')
 var childProcess = require('child_process');
+var serialport = require('serialport');
 
-var _test = false;
-var _windows = true;
+var portname = undefined;
+var myPort = undefined;
 
 ////////////////////////////////////////////
 ////////////////////////////////////////////
@@ -59,7 +60,7 @@ console.log('To quit, close this terminal window');
 var ws = require('ws');
 
 var execTemp = childProcess.exec;
-var tempCommand = _windows ? 'start' : 'open';
+var tempCommand = 'open';
 execTemp(tempCommand+' http://localhost:'+http_port,function(err,stdin,stdout){
 	if(err) {
 		console.log('');
@@ -82,6 +83,17 @@ socketServer.on('connection',function(socket){
 	if(theSocket===undefined){
 
 		theSocket = socket;
+
+		// alert the socket of our connection status
+		var portConnected = false;
+		if(myPort) portConnected = true;
+		var msg = {
+			'type' : 'connection',
+			'data' : portConnected
+		};
+
+		theSocket.send(JSON.stringify(msg));
+
 
 		theSocket.on('message',function(data){
 			data = JSON.parse(data);
@@ -156,52 +168,46 @@ var handlers = {
 	///////////
 	///////////
 
-	'erase' : function(){
-		if(_test){
+	'scan' : function () {
 
-			var delayTime = 1000;
+		// get a list of all available serial ports
+		// and then update the browser with that list
+		scanPorts(function (portArray) {
+			if(theSocket){
+				var msg = {
+					'type' : 'scan',
+					'data' : portArray
+				};
 
-			setTimeout(function(){
-				if(theSocket){
-					var msg = {'type':'erase','data':'1/4'};
-					theSocket.send(JSON.stringify(msg));
-				}
-				setTimeout(function(){
-					if(theSocket){
-						var msg = {'type':'erase','data':'2/4'};
-						theSocket.send(JSON.stringify(msg));
-					}
-					setTimeout(function(){
-						if(theSocket){
-							var msg = {'type':'erase','data':'3/4'};
-							theSocket.send(JSON.stringify(msg));
-						}
-						setTimeout(function(){
-							if(theSocket){
-								var msg = {'type':'erase','data':'4/4'};
-								theSocket.send(JSON.stringify(msg));
-							}
-							setTimeout(function(){
-								if(theSocket){
-									var msg = {'type':'erase','data':'success'};
-									theSocket.send(JSON.stringify(msg));
-								}
-							},delayTime);
-						},delayTime);
-					},delayTime);
-				},delayTime);
-			},delayTime);
-		}
-		else{
-			eraseRoland();
-		}
+				theSocket.send(JSON.stringify(msg));
+			}
+		});
 	},
 
 	///////////
 	///////////
 	///////////
 
-	'jog' : function(data){
+	'connect' : function (data) {
+		portname = data;
+
+		openSerialPort();
+	},
+
+	///////////
+	///////////
+	///////////
+
+	'erase' : function (){
+		// just disconnect then connect the serial port
+		openSerialPort();
+	},
+
+	///////////
+	///////////
+	///////////
+
+	'jog' : function (data) {
 
 		var axis = data.axis;
 		var amount = Number(data.amount);
@@ -217,7 +223,7 @@ var handlers = {
 	///////////
 	///////////
 
-	'sync' : function(){
+	'sync' : function () {
 		var instruction = moveHead(theRoland.coord);
 
 		if(theSocket){
@@ -230,7 +236,7 @@ var handlers = {
 			theSocket.send(JSON.stringify(msg));
 		}
 
-		if(!_test) sendToRoland(instruction);
+		sendToRoland(instruction);
 	},
 
 	///////////
@@ -397,46 +403,9 @@ function moveHead(point){
 ////////////////////////////////////////////
 ////////////////////////////////////////////
 
-function sendToRoland(fileText,onSuccess,onError){
-
-	var fileName = 'move.mill'; // the temp file we create
-
-	// create the temporary file in this directory
-	fs.writeFile(fileName,fileText,function(error){
-		if(error){
-			console.log('\t\tError saving the file:\r\r');
-			console.log(error);
-			if(onError) onError();
-		}
-		else{
-
-			var commandLine = 'type '+fileName+' > '+rolandPortName;
-			if(_test){
-				if(_windows) commandLine = 'type '+fileName; // view it before erasing
-				else commandLine = 'cat '+fileName;
-			}
-
-			var exec = childProcess.exec;
-
-			exec(commandLine, function (error, stdout, stderr) {
-				if(error){
-					console.log('\t\tError sending the command "'+commandLine+'":\r\r');
-					console.log(error);
-					if(onError) onError();
-				}
-				if(stdout){
-					if(_test){
-						console.log('\r\n');
-						console.log(stdout+'\r\r');
-					}
-					// on completion, erase the temporary file
-					fs.unlink(fileName,function(){
-						// i dunno, yay?
-						if(onSuccess) onSuccess();
-					});
-				}
-			});
-		}
+function scanPorts(callback) {
+	serialport.list(function (error, ports) {
+		callback(ports);
 	});
 }
 
@@ -444,76 +413,88 @@ function sendToRoland(fileText,onSuccess,onError){
 ////////////////////////////////////////////
 ////////////////////////////////////////////
 
-function eraseRoland(){
+function sendToRoland(fileText,onSuccess,onError){
 
-	////////////////////////////////////////////
-	////////////////////////////////////////////
-	////////////////////////////////////////////
+	if(myPort) {
+		myPort.write(fileText);
+	}
+}
 
-	function fireCommand(cmd,onSuccess,onError){
+////////////////////////////////////////////
+////////////////////////////////////////////
+////////////////////////////////////////////
 
-		var exec = childProcess.exec;
+function openSerialPort (callback) {
 
-		exec(cmd,function(error,stdin,stdout){
-			if(error){
-				if(onError){
-					onError(error);
-				}
-				else{
-					console.log('Error running command: '+cmd);
-					console.log(error);
-				}
-			}
-			else{
-				if(onSuccess) onSuccess(stdin,stdout);
-			}
-		});
+	function createIt () {
+
+		if(portname) {
+			var options = {
+				'flowControl' : true
+			};
+
+			myPort = new serialport.SerialPort(portname,options);
+
+			myPort.on('open',function(){
+				// tell the browser we've connected
+				var msg = {
+					'type' : 'connection',
+					'data' : true
+				};
+
+				theSocket.send(JSON.stringify(msg));
+
+				if(callback) callback();
+			});
+
+			myPort.on('close',function(){
+
+				myPort = undefined;
+
+				// tell the browser we've disconnected
+				var msg = {
+					'type' : 'connection',
+					'data' : false
+				};
+
+				theSocket.send(JSON.stringify(msg));
+			});
+		}
+		else {
+			// no portname has been set!
+		}
 	}
 
-	function eraseResponse(response){
-		if(theSocket){
+	if(!myPort) createIt();
+	else closeSerialPort(function(){
+		setTimeout(function(){
+			createIt();
+		},1000);
+	});
+}
 
+////////////////////////////////////////////
+////////////////////////////////////////////
+////////////////////////////////////////////
+
+function closeSerialPort (callback) {
+	if(myPort) {
+		myPort.close(function(){
+
+			myPort = undefined;
+
+			// tell the browser we've disconnected
 			var msg = {
-				'type' : 'erase',
-				'data' : response
+				'type' : 'connection',
+				'data' : false
 			};
 
 			theSocket.send(JSON.stringify(msg));
-		}
-		else{
-			console.log(response);
-		}
+
+			if(callback) callback();
+		});
 	}
-
-	////////////////////////////////////////////
-	////////////////////////////////////////////
-	////////////////////////////////////////////
-
-	var firstCommand = 'net stop spooler';
-	eraseResponse('(1/4) stopping the spooler');
-
-	fireCommand(firstCommand,function(){
-
-		var secondCommand = 'del C:\\windows\\System32\\spool\\PRINTERS\\*.SPL';
-		eraseResponse('(2/4) erasing .SPL files');
-
-		fireCommand(secondCommand,function(){
-
-			var thirdCommand = 'del C:\\windows\\System32\\spool\\PRINTERS\\*.SHD';
-			eraseResponse('(3/4) erasing .SHD files');
-
-			fireCommand(thirdCommand,function(){
-
-				var finalCommand = 'net start spooler';
-				eraseResponse('(4/4) starting the spooler');
-
-				fireCommand(finalCommand,function(){
-
-					eraseResponse('success');
-				},function(){eraseResponse('(4/4) failed starting spooler');});
-			},function(){eraseResponse('(3/4) failed erasing .SHD files');});
-		},function(){eraseResponse('(2/4) failed erasing .SPL files');});
-	},function(){eraseResponse('(1/4) failed stopping spooler');});
+	else if(callback) callback();
 }
 
 ////////////////////////////////////////////

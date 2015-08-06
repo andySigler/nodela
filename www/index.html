@@ -14,6 +14,13 @@
 
 				<div class="divider"></div>
 
+				<span>Ports: </span><select id="portsMenu"></select>
+				<br />
+				<br />
+				<button onclick="portConnect()" id="portButton" class="bigbutton">Connect to Port</button>
+
+				<div class="divider"></div>
+
 				<button onclick="mirror()" id="mirror_button" class="bigbutton top_layer" style="display:none">TOP</button>
 
 				<div id="layerButtons_div" class="layerButtons_div">
@@ -73,7 +80,6 @@
 				<div class="divider"></div>
 
 				<button onclick="printLayer()" id="print_button" class="bigbutton">Run Job</button>
-				<button onclick="Roland_eraseMemory()" id="erase_button" class="bigbutton">Delete Job</button>
 				<button onclick="createPnP()" id="pnp_button" class="mediumbutton">Create PnP .csv</button>
 				<button onclick="loadFacingPlan()" id="facing_button" class="mediumbutton">Load Facing Plan</button>
 
@@ -95,12 +101,6 @@
 				<img class="originArrow" id="originArrow" src="./arrow.png">
 
 				<div class="origin_warning" id="origin_warning">Bit Origin</div>
-			</div>
-
-			<div id="eraseBox">
-				<h1>Job Eraser</h1>
-				<div id="eraseStatus" style="width:80%;margin-left:auto;margin-right:auto;"></div>
-				<button id="printerButton" onclick="document.getElementById('eraseBox').style.display = 'none';" style="width:50px;margin-top:20px">OK</button>
 			</div>
 		</div>
 		<script type="text/javascript">

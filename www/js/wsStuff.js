@@ -13,22 +13,41 @@ window.addEventListener('load',function(){
 		ws.isOpen = true;
 		document.body.style.backgroundColor = 'white';
 
-		sync();
+		//sync();
+
+		scanPorts();
 	};
 
 	ws.onmessage = function(msg){
 		msg = JSON.parse(msg.data);
-		if (msg.type==='erase') {
-			if (msg.data==='success') {
-				document.getElementById('eraseBox').style.backgroundColor = 'rgb(30,225,125)';
-				document.getElementById('eraseStatus').style.textAlign = 'left';
-				var eraseInstructions = 'Erase attempt successful, but the Roland\'s driver doesn\'t always cooperate.<ol><li>In the Start menu, open "Devices and Printers."</li><li>Double click the Roland\'s icon to see the driver\'s queue.</li><li>If jobs are still listed, try erasing again.</li></ol>';
-				document.getElementById('eraseStatus').innerHTML = eraseInstructions;
-				document.getElementById('printerButton').style.display = 'inline-block';
+		if(msg.type==='scan') {
+			var portsMenu = document.getElementById('portsMenu');
+			portsMenu.innerHTML = '';
+			for(var i=0;i<msg.data.length;i++) {
+				var thisOption = document.createElement('option');
+				thisOption.innerHTML = msg.data[i].comName;
+				portsMenu.appendChild(thisOption);
+			}
+		}
+		else if(msg.type==='connection') {
+			if(msg.data===true) isPortConnected = true;
+			else isPortConnected = false;
+
+			var portButton = document.getElementById('portButton');
+
+			if(isPortConnected) {
+				console.log('one');
+				portButton.style.backgroundColor = 'rgb(30,225,125)';
+				document.getElementById('print_button').disabled = false;
 			}
 			else {
-				document.getElementById('eraseStatus').innerHTML = msg.data;
+				console.log('two');
+				portButton.style.backgroundColor = 'rgb(205,205,205)';
+				document.getElementById('print_button').disabled = true;
 			}
+		}
+		else {
+			console.log(msg);
 		}
 	};
 
@@ -37,6 +56,37 @@ window.addEventListener('load',function(){
 		document.body.style.backgroundColor = 'rgb(225,100,100)';
 	}
 });
+
+////////////////////////////////////////
+////////////////////////////////////////
+////////////////////////////////////////
+
+var isPortConnected = false;
+
+function portConnect(){
+	var portsMenu = document.getElementById('portsMenu');
+	var portname = portsMenu.options[portsMenu.selectedIndex].value;
+
+	var syncMsg = {
+		'type' : 'connect',
+		'data' : portname
+	};
+
+	ws.send(JSON.stringify(syncMsg));
+}
+
+////////////////////////////////////////
+////////////////////////////////////////
+////////////////////////////////////////
+
+function scanPorts() {
+	var syncMsg = {
+		'type' : 'scan',
+		'data' : ''
+	};
+
+	ws.send(JSON.stringify(syncMsg));
+}
 
 ////////////////////////////////////////
 ////////////////////////////////////////
@@ -133,35 +183,6 @@ function Roland_sendCuts(globalLines, currentLayerName){
 		}
 		else{
 			throwError('Bad value for the Bit Diameter');
-		}
-	}
-}
-
-////////////////////////////////////////
-////////////////////////////////////////
-////////////////////////////////////////
-
-function Roland_eraseMemory(){
-
-	alert("Please Press both up and Down arrows");
-
-	var isBlinking = confirm("Has the light been blinking for more than 5 seconds?");
-
-	if(isBlinking) {
-
-		var msg = {
-			'type' : 'erase',
-			'data' : {}
-		}
-
-		if(ws && ws.isOpen){
-			ws.send(JSON.stringify(msg));
-
-			document.getElementById('eraseBox').style.display = 'block';
-			document.getElementById('eraseBox').style.backgroundColor = 'rgb(225,30,30)';
-			document.getElementById('eraseStatus').style.textAlign = 'center';
-			document.getElementById('eraseStatus').innerHTML = 'Waiting for response...';
-			document.getElementById('printerButton').style.display = 'none';
 		}
 	}
 }
