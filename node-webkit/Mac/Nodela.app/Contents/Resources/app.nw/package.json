@@ -1,0 +1,27 @@
+{
+  "name": "Nodela",
+  "version":"v1.0.0",
+  "node-main":"nodela.js",
+  "main": "dummy.html",
+  "window":{
+      "fullscreen": false,
+      "toolbar": false,
+      "title":"Nodela",
+      "frame": true,
+      "width": 900,
+      "height": 800,
+      "min_width":500,
+      "min_height":500
+  },
+  "description": "Nodela",
+  "repository": {
+    "type" : "git",
+    "url" : "http://github.com/andySigler/nodela.git"
+  },
+  "author": "andySigler",
+  "dependencies": {
+    "ws": "*",
+    "serialport": "*"
+  },
+  "engine": "node >= 0.4.1"
+}

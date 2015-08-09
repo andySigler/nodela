@@ -15,7 +15,7 @@ window.addEventListener('load',function(){
 
 		//sync();
 
-		scanPorts();
+		//scanPorts();
 	};
 
 	ws.onmessage = function(msg){

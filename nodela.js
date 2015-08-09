@@ -2,24 +2,6 @@
 ////////////////////////////////////////////
 ////////////////////////////////////////////
 
-console.log('');
-console.log('');
-console.log('');
-console.log('\t+-+-+-+-+-+-+');
-console.log('\t N O D E L A');
-console.log('\t+-+-+-+-+-+-+');
-console.log('');
-console.log('');
-console.log('');
-
-////////////////////////////////////////////
-////////////////////////////////////////////
-////////////////////////////////////////////
-
-var rolandPortName = 'usbserial';
-
-var sys = require('sys')
-var childProcess = require('child_process');
 var serialport = require('serialport');
 
 var portname = undefined;
@@ -52,22 +34,6 @@ var my_HTTPServer = http.createServer(function (request, response) {
 });
 
 my_HTTPServer.listen(http_port);
-
-console.log('HTTP server started at "http://localhost:' + http_port+'"');
-console.log('');
-console.log('To quit, close this terminal window');
-
-var ws = require('ws');
-
-var execTemp = childProcess.exec;
-var tempCommand = 'open';
-execTemp(tempCommand+' http://localhost:'+http_port,function(err,stdin,stdout){
-	if(err) {
-		console.log('');
-		console.log('Error opening a browser window...');
-		console.log('Please open a browser and go to "http://localhost:'+http_port+'"');
-	}
-});
 
 ////////////////////////////////////////////
 ////////////////////////////////////////////

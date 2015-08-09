@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Nodela</title>
+		<link rel="stylesheet" href="./css/main.css">
+		<script type="text/javascript" src="./js/xmlParse.js"></script>
+		<script type="text/javascript" src="./js/wsStuff.js"></script>
+		<script type="text/javascript" src="./js/blob.js"></script>
+		<script type="text/javascript" src="./js/fileSaver.js"></script>
+	</head>
+	<body>
+		<div class="container" id="container">
+			<div class="buttons_container">
+
+				<div class="divider"></div>
+
+				<span>Ports: </span><select id="portsMenu"></select>
+				<br />
+				<br />
+				<button onclick="scanPorts()" id="scanButton" class="mediumbutton">Scan Ports</button>
+				<button onclick="portConnect()" id="portButton" class="mediumbutton">Connect</button>
+
+				<div class="divider"></div>
+
+				<button onclick="mirror()" id="mirror_button" class="bigbutton top_layer" style="display:none">TOP</button>
+
+				<div id="layerButtons_div" class="layerButtons_div">
+				</div>
+
+				<select class="layer_input" id="bitDiameter"/>
+					<option value="0.01">1/100 End Mill</option>
+					<option value="0.015625">1/64 End Mill</option>
+					<option value="0.03125">1/32 End Mill</option>
+					<option value="0.0625">1/16 End Mill</option>
+					<option value="0.125">1/8 End Mill</option>
+					<option value="0.25">1/4 End Mill</option>
+					<option value="2.0">Drill Bit (any size)</option>
+				</select>
+				<input class="layer_input" id="cutDepth" type="text" />
+
+				<div class="howDeep_instruction">How many <strong>inches</strong> to cut down<br />(~ 0.01 will remove just copper)</div>
+
+				<div class="divider"></div>
+
+				<div class="stepSize_label">Step Size</div>
+
+				<input class="stepSize_bar" id="stepSize_bar" type="range" min="0" max="7" oninput="setStepSize(this.value)"/>
+				<div class="stepSize_display" id="stepSize_display"></div>
+
+				<div id="jog_div" class="jog_div">
+					<button class="jog_button jog_up" onclick="jog(this,'up')">
+						<div class="jog_arrow arrow_up">&#8679;</div>
+					</button>
+					<button class="jog_button jog_left" onclick="jog(this,'left')">
+						<div class="jog_arrow arrow_left">&#8679;</div>
+					</button>
+					<button class="jog_button jog_right" onclick="jog(this,'right')">
+						<div class="jog_arrow arrow_right">&#8679;</div>
+					</button>
+					<button class="jog_button jog_down" onclick="jog(this,'down')">
+						<div class="jog_arrow arrow_down">&#8679;</div>
+					</button>
+				</div>
+
+				<script type="text/javascript">
+
+					var minCutDepth = 0.01;
+
+					window.addEventListener('load',function(e){
+						var depthInput = document.getElementById('cutDepth');
+						depthInput.value = minCutDepth;
+						depthInput.addEventListener('input',function(e){
+							var enteredValue = Number(depthInput.value);
+							if(isNaN(enteredValue) || enteredValue<0) {
+								depthInput.value = minCutDepth;
+							}
+						});
+					});
+				</script>
+
+				<div class="divider"></div>
+
+				<button onclick="printLayer()" id="print_button" class="bigbutton">Run Job</button>
+				<button onclick="createPnP()" id="pnp_button" class="mediumbutton">Create PnP .csv</button>
+				<button onclick="loadFacingPlan()" id="facing_button" class="mediumbutton">Load Facing Plan</button>
+
+				<div style="width:100%;text-align:center;color:black;margin-top:20px;margin-bottom:20px;font-size:12px;">github.com/andysigler/nodela</div>
+
+			</div>
+
+			<div class="board_container">
+				<div id="canvas_container" class="canvasContainer">
+					<div id="dragWords">
+						<h2>DRAG .brd FILE ON THE SCREEN</h2>
+					</div>
+				</div>
+
+				<span id="widthLabel" style="display:none">inches</span>
+				<span id="heightLabel" style="display:none">cm</span>
+
+				<div class="originCircle" id="originCircle"></div>
+				<img class="originArrow" id="originArrow" src="./arrow.png">
+
+				<div class="origin_warning" id="origin_warning">Bit Origin</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+
+			var theStepSize = 1;
+			var jogPressed = false;
+
+			function jog(butt,dir){
+				if(!jogPressed){
+					jogPressed = true;
+
+					var amount = Number(theStepSize);
+					var axis = '';
+
+					if(dir==='left'){
+						axis = 'x';
+						amount *= -1;
+					}
+					else if(dir==='right'){
+						axis = 'x';
+					}
+					else if(dir==='down'){
+						axis = 'y';
+						amount *= -1;
+					}
+					else if(dir==='up'){
+						axis = 'y';
+					}
+
+					Roland_sendJog(axis,amount);
+
+					butt.classList.add('jog_button_focus');
+
+					setTimeout(function(){
+						jogPressed = false;
+						butt.classList.remove('jog_button_focus');
+					},2000);
+				}
+			}
+
+			function setStepSize(val){
+				// step sizes in inches
+				var possibleSteps = [0.002,0.01,0.03,0.06,0.1,0.3,0.5,1];
+				var inches = possibleSteps[val];
+				var cm = (inches * 2.54).toFixed(2);
+				document.getElementById('stepSize_display').innerHTML = inches+' inch ('+cm+' cm)';
+
+				theStepSize = Math.round(inches*1016);
+			}
+
+			window.addEventListener('load',function(){
+				setStepSize(document.getElementById('stepSize_bar').value);
+			});
+		</script>
+	</body>
+</html>
