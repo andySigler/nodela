@@ -9,7 +9,7 @@ nodela was developed for PCB fabrication using the MDX-15/20 milling machines. I
 
 ##Install
 
-Nodela connects directly over a serial connection, so it can work on any operating system. However, your mill must be connected using a serial cable that works with your computer.
+Nodela connects directly over a serial connection, so it can work on any operating system. However, your mill must be connected using a serial cable that works with your computer. The cable that comes with the Roland will only work on Windows, so you'll have to change the cable to work on other platforms.
 
 [See this tutorial](http://progmatter.com/drupal/?q=node/2) for how to properly connect a serial cable to the Modela's RS-232 output.
 
