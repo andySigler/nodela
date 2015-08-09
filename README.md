@@ -9,7 +9,11 @@ nodela was developed for PCB fabrication using the MDX-15/20 milling machines. I
 
 ##Install
 
-Nodela connects directly over a serial connection, so it can work on any operating system. However, your mill must be connected using a serial cable that works with your computer. [See this tutorial](http://progmatter.com/drupal/?q=node/2) for how to properly connect a serial cable to the Modela's RS-232 output. You'll have to make sure the RS-232 25-pin to 9-pin adapter is wired correctly (I had to do some soldering), and then make sure you're cable's drivers are installed on your computer.
+Nodela connects directly over a serial connection, so it can work on any operating system. However, your mill must be connected using a serial cable that works with your computer.
+
+[See this tutorial](http://progmatter.com/drupal/?q=node/2) for how to properly connect a serial cable to the Modela's RS-232 output.
+
+You'll have to make sure the RS-232 25-pin to 9-pin adapter is wired correctly (I had to do some soldering), and then make sure you're cable's drivers are installed on your computer.
 
 ###Installing the node-webkit app on OSX
 
