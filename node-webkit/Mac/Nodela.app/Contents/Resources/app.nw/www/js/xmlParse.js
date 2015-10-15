@@ -603,25 +603,155 @@ function parseXML(theText){
 			var tempWire = allWires[i];
 			var tempLayer = Number(tempWire.getAttribute('layer'));
 
-
+			var thisX1 = makeMill(tempWire.getAttribute('x1'));
+			var thisY1 = makeMill(tempWire.getAttribute('y1'));
+			var thisX2 = makeMill(tempWire.getAttribute('x2'));
+			var thisY2 = makeMill(tempWire.getAttribute('y2'));
+			var thisLayer = Number(tempWire.getAttribute('layer'));
+			var thisWidth = Number(tempWire.getAttribute('width'));
+			var thisCurve = tempWire.getAttribute('curve');
 
 			if(!myWires[tempLayer]){
 				myWires[tempLayer] = [];
 			}
 
-			var _w = {
-				'x1' : makeMill(Number(tempWire.getAttribute('x1'))),
-				'x2' : makeMill(Number(tempWire.getAttribute('x2'))),
-				'y1' : makeMill(Number(tempWire.getAttribute('y1'))),
-				'y2' : makeMill(Number(tempWire.getAttribute('y2'))),
-				'layer' : Number(tempWire.getAttribute('layer')),
-				'width' : Number(tempWire.getAttribute('width'))
-			};
+			if(thisCurve===null) {
 
-			saveMinMax(_w.x1,_w.y1);
-			saveMinMax(_w.x2,_w.y2);
+				// make just one line for the point
+				var _w = {
+					'x1' : thisX1,
+					'y1' : thisY1,
+					'x2' : thisX2,
+					'y2' : thisY2,
+					'layer' : thisLayer,
+					'width' : thisWidth
+				};
 
-			myWires[tempLayer].push(_w);
+				saveMinMax(_w.x1,_w.y1);
+				saveMinMax(_w.x2,_w.y2);
+
+				myWires[tempLayer].push(_w);
+			}
+			else {
+
+				// we have to create many lines for each point
+				// along the circumference of a circle
+
+				var radius = Math.abs(thisX1 - thisX2);
+				var radianOffset = 0;
+				var centerX, centerY;
+
+				// start by getting the center of the circle
+
+				if(thisCurve>0) { 	// counter-clockwise
+					if(thisY1>thisY2) {
+						if(thisX1>thisX2) {
+							centerX = thisX1;
+							centerY = thisY2;
+							radianOffset += Math.PI*1.5;
+							console.log(1);
+						}
+						else {
+							centerX = thisX2;
+							centerY = thisY1;
+							radianOffset += Math.PI;
+							console.log(2);
+						}
+					}
+					else {
+						if(thisX1>thisX2) {
+							centerX = thisX2;
+							centerY = thisY1;
+							radianOffset += 0;
+							console.log(3);
+						}
+						else {
+							centerX = thisX1;
+							centerY = thisY2;
+							radianOffset += Math.PI*.5;
+							console.log(4);
+						}
+					}
+				}
+				else { 				// clockwise
+					if(thisY1>thisY2) {
+						if(thisX1>thisX2) {
+							centerX = thisX2;
+							centerY = thisY1;
+							radianOffset += Math.PI;
+							console.log(5);
+						}
+						else {
+							centerX = thisX1;
+							centerY = thisY2;
+							radianOffset += Math.PI*1.5;
+							console.log(6);
+						}
+					}
+					else {
+						if(thisX1>thisX2) {
+							centerX = thisX1;
+							centerY = thisY2;
+							radianOffset += Math.PI*.5;
+							console.log(7);
+						}
+						else {
+							centerX = thisX2;
+							centerY = thisY1;
+							radianOffset += 0;
+							console.log(8);
+						}
+					}
+				}
+
+				// start at the center, rotate along the radius getting points
+
+				var radianSweep = Math.PI/2;
+				var radianStep = Math.PI / (radius*.1);
+
+				var oldX = thisX2;
+				var oldY = thisY2;
+
+				for(var rad=radianStep;rad<radianSweep;rad+=radianStep){
+					var tempRadians = radianOffset + rad;
+					if(thisCurve<0) tempRadians *= -1;
+					var newX = centerX + (radius * Math.sin(tempRadians));
+					var newY = centerY + (radius * Math.cos(tempRadians));
+
+					// save the new point as a straight line
+					var _w = {
+						'x1' : oldX,
+						'y1' : oldY,
+						'x2' : Math.round(newX),
+						'y2' : Math.round(newY),
+						'layer' : thisLayer,
+						'width' : thisWidth
+					};
+
+					saveMinMax(_w.x1,_w.y1);
+					saveMinMax(_w.x2,_w.y2);
+
+					myWires[tempLayer].push(_w);
+
+					oldX = newX;
+					oldY = newY;
+				}
+
+				// save the final point
+				var _w = {
+					'x1' : oldX,
+					'y1' : oldY,
+					'x2' : thisX1,
+					'y2' : thisY1,
+					'layer' : thisLayer,
+					'width' : thisWidth
+				};
+
+				saveMinMax(_w.x1,_w.y1);
+				saveMinMax(_w.x2,_w.y2);
+
+				myWires[tempLayer].push(_w);
+			}
 		}
 		return myWires;
 	}
