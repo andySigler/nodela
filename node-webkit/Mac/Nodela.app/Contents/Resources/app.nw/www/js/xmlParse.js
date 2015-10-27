@@ -720,8 +720,8 @@ function parseXML(theText){
 
 					// save the new point as a straight line
 					var _w = {
-						'x1' : oldX,
-						'y1' : oldY,
+						'x1' : Math.round(oldX),
+						'y1' : Math.round(oldY),
 						'x2' : Math.round(newX),
 						'y2' : Math.round(newY),
 						'layer' : thisLayer,
