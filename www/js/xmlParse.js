@@ -767,12 +767,17 @@ function parseXML(theText){
 				'package' : element.getAttribute('package'),
 				'rot' : element.getAttribute('rot') || 0,
 				'x' : makeMill(Number(element.getAttribute('x'))),
-				'y' : makeMill(Number(element.getAttribute('y')))
+				'y' : makeMill(Number(element.getAttribute('y'))),
+				'mirrored' : false
 			};
 
 			saveMinMax(tempPart.x,tempPart.y);
 
 			if(typeof tempPart.rot==='string') {
+
+				if(tempPart.rot.charAt(0)==='M') {
+					tempPart.mirrored = true;
+				}
 
 				// find the first character that's a number
 				// and get rid of all previous characters
@@ -836,8 +841,11 @@ function parseXML(theText){
 
 						var thisPart = parts[n];
 
-						var rads = ((360-thisPart.rot)/180)*Math.PI;
-						thisPart.rads = rads;
+						thisPart.rads = ((360-thisPart.rot)/180)*Math.PI;
+
+						if(thisPart.mirrored) {
+							thisPart.rads += ((Math.PI*2) - thisPart.rads) * 2;
+						}
 
 						thisPart.holes = [];
 
@@ -848,11 +856,16 @@ function parseXML(theText){
 							var relX = Number(thisHole.getAttribute('x'));
 							var relY = Number(thisHole.getAttribute('y'));
 
+							if(thisPart.mirrored) {
+								relX *= -1;
+								//relY *= -1;
+							}
+
 							var tempHole = {
 								'relX' : makeMill(relX),
 								'relY' : makeMill(relY),
-								'currentRelX' : makeMill((relY*Math.sin(rads))+(relX*Math.cos(rads))),
-								'currentRelY' : makeMill((relY*Math.cos(rads))-(relX*Math.sin(rads)))
+								'currentRelX' : makeMill((relY*Math.sin(thisPart.rads))+(relX*Math.cos(thisPart.rads))),
+								'currentRelY' : makeMill((relY*Math.cos(thisPart.rads))-(relX*Math.sin(thisPart.rads)))
 							};
 
 							thisPart.holes.push(tempHole);

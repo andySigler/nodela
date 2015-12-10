@@ -36,12 +36,10 @@ window.addEventListener('load',function(){
 			var portButton = document.getElementById('portButton');
 
 			if(isPortConnected) {
-				console.log('one');
 				portButton.style.backgroundColor = 'rgb(30,225,125)';
 				document.getElementById('print_button').disabled = false;
 			}
 			else {
-				console.log('two');
 				portButton.style.backgroundColor = 'rgb(205,205,205)';
 				document.getElementById('print_button').disabled = true;
 			}
