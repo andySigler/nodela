@@ -950,6 +950,12 @@ function parseXML(theText){
 			// 'signals' holds a signal-line's containing wires, vias, and pads
 			var signals = theBoard.getElementsByTagName('signals')[0];
 			var allSignals = signals.getElementsByTagName('signal');
+			var signalWires = [];
+			Array.from(allSignals).forEach(function(signal) {
+				var wires = Array.from(signal.getElementsByTagName('wire'));
+				signalWires = signalWires.concat(wires);
+			});
+			allWires = Array.from(allWires).concat(signalWires);
 
 			var libraries = theBoard.getElementsByTagName('libraries')[0];
 			var allLibraries = libraries.getElementsByTagName('library');
